@@ -5,6 +5,9 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(use-package fish-mode
+  :ensure t)
+
 (use-package lua-mode
   :ensure t)
 
