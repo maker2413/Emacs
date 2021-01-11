@@ -8,6 +8,9 @@
 (use-package fish-mode
   :ensure t)
 
+(use-package json-mode
+  :ensure t)
+
 (use-package lua-mode
   :ensure t)
 
