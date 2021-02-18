@@ -4,8 +4,12 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(require 'init-config)
+;; Run packages file
 (require 'init-packages)
+
+;; Run my config file
+(require 'init-config)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

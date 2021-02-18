@@ -19,3 +19,6 @@
 
 (use-package yaml-mode
   :ensure t)
+
+(use-package afternoon-theme
+  :ensure t)
