@@ -20,3 +20,11 @@
 
 ;; Set theme
 (load-theme 'afternoon t)
+
+;; Set sh mode indentation
+(defun turn-off-indent-tabs-mode ()
+  (setq indent-tabs-mode nil))
+  (setq sh-basic-offset 2)
+  (setq sh-indentation 2)
+  (setq sh-indent-after-continuation 'always)
+(add-hook 'sh-mode-hook #'turn-off-indent-tabs-mode)
