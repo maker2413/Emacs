@@ -5,6 +5,13 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(use-package afternoon-theme
+  :ensure t)
+
+
+(use-package exec-path-from-shell
+  :ensure t)
+
 (use-package fish-mode
   :ensure t)
 
@@ -18,7 +25,4 @@
   :ensure t)
 
 (use-package yaml-mode
-  :ensure t)
-
-(use-package afternoon-theme
   :ensure t)

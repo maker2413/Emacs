@@ -12,5 +12,11 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;; Bring in shell environment variables
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+
 ;; Set theme
 (load-theme 'afternoon t)
