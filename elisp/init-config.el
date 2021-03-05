@@ -28,3 +28,4 @@
   (setq sh-indentation 2)
   (setq sh-indent-after-continuation 'always)
 (add-hook 'sh-mode-hook #'turn-off-indent-tabs-mode)
+(add-hook 'lua-mode-hook #'turn-off-indent-tabs-mode)
