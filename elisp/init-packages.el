@@ -8,6 +8,8 @@
 (use-package afternoon-theme
   :ensure t)
 
+(use-package dockerfile-mode
+  :ensure t)
 
 (use-package exec-path-from-shell
   :ensure t)
