@@ -23,6 +23,9 @@
 (use-package lua-mode
   :ensure t)
 
+(use-package markdown-mode
+  :ensure t)
+
 (use-package terraform-mode
   :ensure t)
 
