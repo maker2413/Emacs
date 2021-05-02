@@ -17,6 +17,9 @@
 (use-package fish-mode
   :ensure t)
 
+(use-package go-mode
+  :ensure t)
+
 (use-package json-mode
   :ensure t)
 

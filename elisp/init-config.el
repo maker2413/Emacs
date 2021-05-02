@@ -21,11 +21,25 @@
 ;; Set theme
 (load-theme 'afternoon t)
 
-;; Set sh mode indentation
-(defun turn-off-indent-tabs-mode ()
-  (setq indent-tabs-mode nil))
-  (setq sh-basic-offset 2)
-  (setq sh-indentation 2)
-  (setq sh-indent-after-continuation 'always)
-(add-hook 'sh-mode-hook #'turn-off-indent-tabs-mode)
-(add-hook 'lua-mode-hook #'turn-off-indent-tabs-mode)
+(add-hook 'sh-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode nil)
+	    (setq sh-basic-offset 2)
+	    (setq sh-indentation 2)
+	    (setq sh-indent-after-continuation 'always)))
+
+(add-hook 'lua-mode-hook
+	  (lambda ()
+	    (setq tab-width 2
+		  indent-tabs-mode nil)))
+
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (setq tab-width 4)))
+
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (setq tab-width 4)))
+
+(setq org-src-preserve-indentation nil
+      org-edit-src-content-indentation 0)
