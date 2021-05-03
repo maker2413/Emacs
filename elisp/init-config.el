@@ -21,6 +21,12 @@
 ;; Set theme
 (load-theme 'afternoon t)
 
+;; Set keybinds for org mode
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+;; Set indentation and tab rules
 (add-hook 'sh-mode-hook
 	  (lambda ()
 	    (setq indent-tabs-mode nil)
