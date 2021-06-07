@@ -49,3 +49,9 @@
 
 (setq org-src-preserve-indentation nil
       org-edit-src-content-indentation 0)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (shell . t)
+   ))
