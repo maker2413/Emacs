@@ -1,0 +1,5 @@
+((magit-branch nil)
+ (magit-fetch nil)
+ (magit-merge nil)
+ (magit-push nil)
+ (magit-stash nil))
