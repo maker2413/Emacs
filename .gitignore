@@ -1,4 +1,6 @@
 %backup%~
 auto-save-list
 elpa
+forge-database.sqlite
 tramp
+transient
