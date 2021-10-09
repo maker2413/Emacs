@@ -1,0 +1,265 @@
+#+TITLE: Emacs Config
+#+PROPERTY: header-args :tangle ./init.el
+
+* Basic Configuration
+  These are just some of the basic configurations to emacs like font settings,
+  and enabling and disabling menus and toolbars:
+  #+begin_src emacs-lisp
+    (setq inhibit-startup-message t)
+
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1)
+    (tooltip-mode -1)
+    (set-fringe-mode 10)
+
+    (menu-bar-mode -1)
+
+    (setq visible-bell t)
+
+    (column-number-mode)
+    (global-display-line-numbers-mode t)
+
+    (setq-default indent-tabs-mode nil)
+
+  #+end_src
+
+** Font Configuration
+   Next I have my Font configurations like setting font family and sizes:
+   #+begin_src emacs-lisp
+     (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
+
+   #+end_src
+
+** Temp File Configuration
+   I don't like the default emacs behavior of creating temporary files in the
+   current directory of the file being edited. Although I think this is a great
+   feature of emacs and didn't want to disable it complete so I move my backup
+   and autosave directories to ~/tmp/~ which will only stay around until the
+   device is rebooted:
+   #+begin_src emacs-lisp
+     ;; Change where temp files are stored
+     (setq backup-directory-alist
+           `((".*" . ,temporary-file-directory)))
+     (setq auto-save-file-name-transforms
+           `((".*" ,temporary-file-directory t)))
+
+   #+end_src
+
+* Package Configuration
+  I first add melpa to the package repository and initialize packages. I also
+  refresh packages contents if package archive contents doesn't exist. Finally I
+  install ~use-package~ and set it to always assume ~ensure t~ for packages:
+  #+begin_src emacs-lisp
+    (require 'package)
+
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+    (package-initialize)
+    (unless package-archive-contents
+      (package-refresh-contents))
+
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
+
+    (require 'use-package)
+    (setq use-package-always-ensure t)
+
+  #+end_src
+
+** Theming Packages
+   These are just my packages that theme aspects of my emacs. I used to use the
+   ~afternoon~ theme for my emacs config:
+   #+begin_src emacs-lisp
+     ;(use-package afternoon-theme)
+
+   #+end_src
+
+   I use ~doom-modeline~ to clean up the mode line display of emacs:
+   #+begin_src emacs-lisp
+     (use-package doom-modeline
+       :init (doom-modeline-mode t)
+       :custom ((doom-modeline-height 10)))
+
+   #+end_src
+
+   I use the palenight theme from the ~doom-themes~ package in my emacs
+   configuration:
+   #+begin_src emacs-lisp
+     (use-package doom-themes
+       :init (load-theme 'doom-palenight t))
+
+   #+end_src
+
+   I also install ~all-the-icons~, this package simple adds support for icons
+   throught emacs to make it look cleaner. It is important to note that to
+   install the require resource fonts for this package you have to run: ~M-x
+   all-the-icons-install-fonts~ after install this package:
+   #+begin_src emacs-lisp
+     (use-package all-the-icons)
+
+   #+end_src
+
+** Basic Packages
+   These are just some basic packages I have in my emacs config. First we have
+   ~diminish~. The diminish package allows minor modes to be hidden
+   in the mode line display of emacs. We will utilize this later to in the
+   config to clean up the mode line of some major modes:
+   #+begin_src emacs-lisp
+     (use-package diminish)
+
+   #+end_src
+
+   I used to use the ~rainbow-delimiters~ package to color code parenthesis and
+   braces to tell them apart. I'm still on the fence about using this package so
+   I am including it commented out:
+   #+begin_src emacs-lisp
+     ;; (use-package rainbow-delimiters
+     ;;   :hook (prog-mode . rainbow-delimiters-mode))
+
+   #+end_src
+
+** Helper Packages
+   I use ~which-key~ in my configuration to display the possible keybindings
+   available to me when I start typing a command. I think this helps me a lot
+   without having to memorize every keybinding in emacs. I also use
+   ~use-package~'s keywords to allow ~diminish~ to hide this minor mode from
+   being displayed in the mode line display and to configure the delay before
+   ~which-key~ shows the possible keybindings available:
+   #+begin_src emacs-lisp
+     (use-package which-key
+       :init (which-key-mode t)
+       :diminish
+       :config
+       (setq which-key-idls-delay 0.5))
+
+   #+end_src
+
+   I also use the ~helpful~ package to provide more contextual information when
+   running help commands in emacs:
+*** TODO Describe these bindings and custom functions!
+   #+begin_src emacs-lisp
+     (use-package helpful
+       :custom
+       (counsel-describe-function-function #'helpful-callable)
+       (counsel-describe-variable-function #'helpful-variable)
+       :bind
+       ([remap describe-function] . counsel-describe-function)
+       ([remap describe-command] . helpful-command)
+       ([remap describe-variable] . counsel-describe-variable)
+       ([remap describe-key] . helpful-key))
+
+   #+end_src
+
+** Ivy Software Configuration
+   This section will cover the ~ivy~ package and its respective counter parts
+   ~counsel~ and ~swiper~. It will also go over some enhancement packages like
+   ~ivy-rich~. Lets begin by installing ~ivy~ which will also install ~counsel~
+   and ~swiper~ for us. I will also be utilizing ~use-package~'s keywords to set
+   a binding to use swiper and to configure ivy-mode to be started by default:
+   #+begin_src emacs-lisp
+     (use-package ivy
+       :diminish
+       :bind (("C-s" . swiper))
+       :config
+       (ivy-mode 1))
+
+   #+end_src
+
+   With ~ivy~ installed we did also get the ~counsel~ and ~swiper~ packages
+   included, however I am going to use ~use-package~'s keywords to set some
+   bindings for counsel functions:
+   #+begin_src emacs-lisp
+     (use-package counsel
+       :bind(("M-x" . counsel-M-x)
+             ("C-c r" . counsel-rg)
+             ("C-x b" . counsel-switch-buffer)))
+
+   #+end_src
+
+   I use the ~ivy-rich~ package to enhance the look of ~ivy~ and ~counsel~
+   functions. I also use the ~all-the-icons-ivy-rich~ package to use my icons
+   font from the ~all-the-icons~ package:
+   #+begin_src emacs-lisp
+     (use-package all-the-icons-ivy-rich
+       :init (all-the-icons-ivy-rich-mode 1))
+
+     (use-package ivy-rich
+       :init (ivy-rich-mode 1))
+
+   #+end_src
+
+** Hydra Configuration
+   I use the ~hydra~ package to build out a hydra (menu) of commands to switch
+   between windows, buffers, and frames. Essentially what this means is if I hit
+   ~C-o~ a hydra will pop up and display a simple menu I made and prompt for key
+   commands as to which window, buffer, or frame I want to swtich to:
+   #+begin_src emacs-lisp
+     (use-package hydra)
+
+     (defhydra hydra-window (global-map "C-o"
+                             :timeout 5
+                             :hint nil)
+       "
+       ^Window Management^
+
+       ^Windows^     ^Buffers^     ^Frame^
+       ^^^^^^^^---------------------------------
+       _f_: next     _n_: next     _TAB_: switch
+       _b_: prev     _p_: prev     ^ ^
+       "
+       ("f" other-window)
+       ("b" (other-window (- 1)))
+       ("n" next-buffer)
+       ("p" previous-buffer)
+       ("TAB" other-frame)
+       ("g" nil "cancel" :color blue))
+
+   #+end_src
+
+* Shell Configuration
+  First I start with disabling line numbers in the ~eshell-mode~, ~shell-mode~,
+  and ~term-mode~:
+  #+begin_src emacs-lisp
+    (dolist (mode '(eshell-mode-hook
+                    shell-mode-hook
+                    term-mode-hook))
+      (add-hook mode(lambda() (display-line-numbers-mode 0))))
+
+  #+end_src
+
+* Org Configuration
+  #+begin_src emacs-lisp
+    (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+    (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+  #+end_src
+
+** Org Babel Configuration
+
+   #+begin_src emacs-lisp
+     (setq org-confirm-babel-evaluate nil)
+
+     ;; Automatically tangle our Emacs.org config file when we save it
+     (defun heph/org-babel-tangle-config ()
+       (when (string-equal (buffer-file-name)
+                           (expand-file-name "~/.config/emacs/README.org"))
+         ;; Dynamic scoping to the rescue
+         (let ((org-confirm-babel-evaluate nil))
+           (org-babel-tangle))))
+
+     (add-hook 'org-mode-hook
+               (lambda ()
+                 (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
+
+   #+end_src
+
+** Structure Templates
+
+   #+begin_src emacs-lisp
+     (require 'org-tempo)
+
+     (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+     (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+  #+end_src

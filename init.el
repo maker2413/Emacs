@@ -9,9 +9,19 @@
 
 (setq visible-bell t)
 
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+(setq-default indent-tabs-mode nil)
+
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
-;; Initialize package sources
+;; Change where temp files are stored
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -26,22 +36,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package afternoon-theme)
-
-;;(load-theme 'afternoon t)
-
-(use-package diminish)
-
-(use-package counsel
-  :bind(("M-x" . counsel-M-x)))
-
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper))
-  :config
-  (ivy-mode 1))
-
-(use-package all-the-icons)
+;(use-package afternoon-theme)
 
 (use-package doom-modeline
   :init (doom-modeline-mode t)
@@ -50,13 +45,9 @@
 (use-package doom-themes
   :init (load-theme 'doom-palenight t))
 
-(column-number-mode)
-(global-display-line-numbers-mode t)
+(use-package all-the-icons)
 
-(dolist (mode '(eshell-mode-hook
-		shell-mode-hook
-		term-mode-hook))
-  (add-hook mode(lambda() (display-line-numbers-mode 0))))
+(use-package diminish)
 
 ;; (use-package rainbow-delimiters
 ;;   :hook (prog-mode . rainbow-delimiters-mode))
@@ -66,9 +57,6 @@
   :diminish
   :config
   (setq which-key-idls-delay 0.5))
-
-(use-package ivy-rich
-  :init (ivy-rich-mode 1))
 
 (use-package helpful
   :custom
@@ -80,10 +68,27 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper))
+  :config
+  (ivy-mode 1))
+
+(use-package counsel
+  :bind(("M-x" . counsel-M-x)
+        ("C-c r" . counsel-rg)
+        ("C-x b" . counsel-switch-buffer)))
+
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1))
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
+
 (use-package hydra)
 
 (defhydra hydra-window (global-map "C-o"
-                        :timeout 3
+                        :timeout 5
                         :hint nil)
   "
   ^Window Management^
@@ -100,27 +105,30 @@
   ("TAB" other-frame)
   ("g" nil "cancel" :color blue))
 
-(setq-default indent-tabs-mode nil)
-
-;; Change where temp files are stored
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(hydra helpful ivy-rich which-key doom-themes counsel yaml-mode use-package terraform-mode markdown-mode lua-mode json-mode ivy groovy-mode go-mode fish-mode exec-path-from-shell doom-modeline dockerfile-mode diminish afternoon-theme)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(dolist (mode '(eshell-mode-hook
+                shell-mode-hook
+                term-mode-hook))
+  (add-hook mode(lambda() (display-line-numbers-mode 0))))
 
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+(setq org-confirm-babel-evaluate nil)
+
+;; Automatically tangle our Emacs.org config file when we save it
+(defun heph/org-babel-tangle-config ()
+  (when (string-equal (buffer-file-name)
+                      (expand-file-name "~/.config/emacs/README.org"))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
+
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
