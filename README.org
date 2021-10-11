@@ -1,6 +1,10 @@
 #+TITLE: Emacs Config
 #+PROPERTY: header-args :tangle ./init.el
 
+This is my emacs configuration. I write my entire configuration in org-mode
+files and have setup functionality to auto-tangle these files upon save to their
+appropriate elisp files. I will cover how this is done further in this document.
+
 * Basic Configuration
   These are just some of the basic configurations to emacs like font settings,
   and enabling and disabling menus and toolbars:
@@ -113,8 +117,8 @@
    braces to tell them apart. I'm still on the fence about using this package so
    I am including it commented out:
    #+begin_src emacs-lisp
-     ;; (use-package rainbow-delimiters
-     ;;   :hook (prog-mode . rainbow-delimiters-mode))
+     (use-package rainbow-delimiters
+       :hook (prog-mode . rainbow-delimiters-mode))
 
    #+end_src
 
@@ -235,14 +239,19 @@
   #+end_src
 
 ** Org Babel Configuration
-
+   This block will go over various configurations I have made to org-mode's
+   babel feature. The most import of these is the ~heph/org-babel-tangle-config~
+   function which will automatically tangle any org files in the
+   ~~/.config/emacs/~ directory:
    #+begin_src emacs-lisp
      (setq org-confirm-babel-evaluate nil)
 
      ;; Automatically tangle our Emacs.org config file when we save it
      (defun heph/org-babel-tangle-config ()
-       (when (string-equal (buffer-file-name)
-                           (expand-file-name "~/.config/emacs/README.org"))
+       (when (or (string-equal (buffer-file-name)
+                               (expand-file-name "~/.config/emacs/README.org"))
+                 (string-equal (buffer-file-name)
+                               (expand-file-name "~/.config/emacs/exwm/README.org")))
          ;; Dynamic scoping to the rescue
          (let ((org-confirm-babel-evaluate nil))
            (org-babel-tangle))))
@@ -254,12 +263,24 @@
    #+end_src
 
 ** Structure Templates
-
+   This block setups some org structure templates for various source blocks I
+   use often. With these in place I can simply type ~<el~ and hit tab to
+   generate an emacs lisp source block in my org file for example:
    #+begin_src emacs-lisp
      (require 'org-tempo)
 
      (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
+     (add-to-list 'org-structure-template-alist '("ja" . "src java"))
+
+  #+end_src
+
+* EXWM Configuration
+  The ~exwm~ package allows you to use emacs as a window manager. I broke out
+  my ~exwm~ configuration into the [[./exwm/README.org][exwm directory]]. I will include the =exwm.el=
+  file in my base =init.el= file:
+  #+begin_src emacs-lisp
+    (load "~/.config/emacs/exwm/exwm-configuration.el")
 
   #+end_src

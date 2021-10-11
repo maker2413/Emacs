@@ -49,8 +49,8 @@
 
 (use-package diminish)
 
-;; (use-package rainbow-delimiters
-;;   :hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package which-key
   :init (which-key-mode t)
@@ -117,8 +117,10 @@
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun heph/org-babel-tangle-config ()
-  (when (string-equal (buffer-file-name)
-                      (expand-file-name "~/.config/emacs/README.org"))
+  (when (or (string-equal (buffer-file-name)
+                          (expand-file-name "~/.config/emacs/README.org"))
+            (string-equal (buffer-file-name)
+                          (expand-file-name "~/.config/emacs/exwm/README.org")))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
@@ -132,3 +134,6 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("ja" . "src java"))
+
+(load "~/.config/emacs/exwm/exwm-configuration.el")
