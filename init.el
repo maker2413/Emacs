@@ -14,6 +14,12 @@
 
 (setq-default indent-tabs-mode nil)
 
+;; Set frame transparency
+(set-frame-parameter (selected-frame) 'alpha '(96 . 92))
+(add-to-list 'default-frame-alist '(alpha . (96 . 92)))
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
 ;; Change where temp files are stored
@@ -131,9 +137,8 @@
 
 (require 'org-tempo)
 
-(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("ba" . "src bash"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
-
-(load "~/.config/emacs/exwm/exwm-configuration.el")
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))

@@ -25,6 +25,11 @@ appropriate elisp files. I will cover how this is done further in this document.
 
     (setq-default indent-tabs-mode nil)
 
+    ;; Set frame transparency
+    (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
+    (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
+    (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))
   #+end_src
 
 ** Font Configuration
@@ -269,18 +274,16 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      (require 'org-tempo)
 
-     (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+     (add-to-list 'org-structure-template-alist '("ba" . "src bash"))
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-     (add-to-list 'org-structure-template-alist '("py" . "src python"))
      (add-to-list 'org-structure-template-alist '("ja" . "src java"))
+     (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+     (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
   #+end_src
 
 * EXWM Configuration
   The ~exwm~ package allows you to use emacs as a window manager. I broke out
-  my ~exwm~ configuration into the [[./exwm/README.org][exwm directory]]. I will include the =exwm.el=
-  file in my base =init.el= file:
-  #+begin_src emacs-lisp
-    (load "~/.config/emacs/exwm/exwm-configuration.el")
-
-  #+end_src
+  my ~exwm~ configuration into the [[./exwm/README.org][exwm directory]]. By doing this starting emacs
+  without the start script found in the exwm directory will not load any ~exwm~
+  specific configurations.
