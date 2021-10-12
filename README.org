@@ -181,8 +181,9 @@ appropriate elisp files. I will cover how this is done further in this document.
      (use-package counsel
        :bind(("M-x" . counsel-M-x)
              ("C-c r" . counsel-rg)
-             ("C-x b" . counsel-switch-buffer)))
-
+             ("C-x b" . counsel-switch-buffer))
+       :custom
+       (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
    #+end_src
 
    I use the ~ivy-rich~ package to enhance the look of ~ivy~ and ~counsel~

@@ -83,7 +83,9 @@
 (use-package counsel
   :bind(("M-x" . counsel-M-x)
         ("C-c r" . counsel-rg)
-        ("C-x b" . counsel-switch-buffer)))
+        ("C-x b" . counsel-switch-buffer))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only))
 
 (use-package all-the-icons-ivy-rich
   :init (all-the-icons-ivy-rich-mode 1))
