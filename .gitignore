@@ -1,4 +1,6 @@
 %backup%~
+.cache
+.lsp-session-v1
 auto-save-list
 elpa
 tramp

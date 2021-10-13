@@ -7,30 +7,48 @@ appropriate elisp files. I will cover how this is done further in this document.
 
 * Basic Configuration
   These are just some of the basic configurations to emacs like font settings,
-  and enabling and disabling menus and toolbars:
+  and enabling and disabling menus and toolbars. First lets define a heading to
+  explain that our =init.el= file is being generated from this org file:
   #+begin_src emacs-lisp
-    (setq inhibit-startup-message t)
+    ;; -----------------------------------------------------------------------------
+    ;; Note this file is generated from the README.org file. Any changes made to
+    ;; this file will be wiped when new changes are added to the README.org. Please
+    ;; edit the README.org for any changes you desire.
+    ;; -----------------------------------------------------------------------------
 
-    (scroll-bar-mode -1)
-    (tool-bar-mode -1)
-    (tooltip-mode -1)
-    (set-fringe-mode 10)
-
-    (menu-bar-mode -1)
-
-    (setq visible-bell t)
-
-    (column-number-mode)
-    (global-display-line-numbers-mode t)
-
-    (setq-default indent-tabs-mode nil)
-
-    ;; Set frame transparency
-    (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
-    (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
-    (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-    (add-to-list 'default-frame-alist '(fullscreen . maximized))
   #+end_src
+
+** General Configuration
+   These are just the basic boiler plate configurations I make to my emacs
+   configuration:
+   #+begin_src emacs-lisp
+     (setq inhibit-startup-message t)
+
+     ;; Clean up the UI
+     (scroll-bar-mode -1)
+     (tool-bar-mode -1)
+     (tooltip-mode -1)
+     (set-fringe-mode 10)
+
+     (menu-bar-mode -1)
+
+     ;; Flash instead of beep
+     (setq visible-bell t)
+
+     ;; Show line numbers
+     (column-number-mode)
+     (global-display-line-numbers-mode t)
+
+     ;; Spaces > tabs
+     (setq-default indent-tabs-mode nil)
+
+     ;; Set frame transparency
+     (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
+     (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
+     (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+     (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+   #+end_src
 
 ** Font Configuration
    Next I have my Font configurations like setting font family and sizes:
@@ -232,7 +250,8 @@ appropriate elisp files. I will cover how this is done further in this document.
   #+begin_src emacs-lisp
     (dolist (mode '(eshell-mode-hook
                     shell-mode-hook
-                    term-mode-hook))
+                    term-mode-hook
+                    treemacs-mode-hook))
       (add-hook mode(lambda() (display-line-numbers-mode 0))))
 
   #+end_src
@@ -282,6 +301,96 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
   #+end_src
+
+* Development Configurations
+  This section will cover various packages and configurations I have setup for
+  development work.
+
+** Language Servers
+   This section will cover the ~lsp-mode~ package and the various configurations
+   I have setup to build my own IDE for various languages. The ~lsp-mode~
+   package allows us to implement IDE-like functionality for many different
+   programming languages via "language servers" that use the
+   [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]]:
+   #+begin_src emacs-lisp
+     (defun heph/lsp-mode-setup ()
+       (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+       (lsp-headerline-breadcrumb-mode))
+
+     (use-package lsp-mode
+       :commands (lsp lsp-deferred)
+       :hook (lsp-mode . heph/lsp-mode-setup)
+       :init
+       (setq lsp-keymap-prefix "C-l")
+       :config
+       (lsp-enable-which-key-integration t))
+
+   #+end_src
+
+   I also use a simple package called ~lsp-ui~ to add some more pretty UI
+   aspects to ~lsp-mode~:
+   #+begin_src emacs-lisp
+     (use-package lsp-ui
+       :hook (lsp-mode . lsp-ui-mode)
+       :custom
+       (lsp-ui-doc-position 'bottom))
+
+   #+end_src
+
+   While we are on the topic of making ~lsp-mode~ look pretty I also have
+   installed a package called ~lsp-treemacs~. I don't really use it much so I
+   may remove it someday but it could be handy:
+   #+begin_src emacs-lisp
+     (use-package lsp-treemacs
+       :after lsp)
+
+   #+end_src
+   Some of the commands to note about ~lsp-treemacs~ are:
+   - lsp-treemacs-symbols:
+     Show a tree view of the symbols in the current file.
+   - lsp-treemacs-references:
+     Show a tree view for the references of the symbol under the cursor.
+   - lsp-treemacs-error-list:
+     Show a tree view for the diagnostic messages in the project.
+
+   Now that ~lsp-mode~ is installed you are almost ready to go. There are a lot
+   of language servers that are installed already, however for some of them you
+   will have to run the ~M-x lsp-install-server~ and select the language server
+   you want to install. The full list of available language servers can be
+   found: [[https://emacs-lsp.github.io/lsp-mode/page/languages/][here]].
+
+   I also utilize a package called ~company-mode~. The ~company-mode~ package
+   allows emacs to truly act like other IDEs and open a completion menu
+   automatically to suggest completions for you. I also use the package
+   ~company-box~ to show these suggested completions in a UI box:
+   #+begin_src emacs-lisp
+     (use-package company
+       :after lsp-mode
+       :hook (lsp-mode . company-mode)
+       :bind (:map company-active-map
+              ("<tab>" . company-complete-selection))
+             (:map lsp-mode-map
+              ("<tab>" . company-indent-or-complete-common))
+       :custom
+       (company-minimum-prefix-length 1)
+       (company-idle-delay 0.0))
+
+     (use-package company-box
+       :hook (company-mode . company-box-mode))
+
+   #+end_src
+
+** Language Packages
+   This section will cover the different mode packages I use for the various
+   development languages I work with:
+   #+begin_src emacs-lisp
+     (use-package typescript-mode
+       :mode "\\.ts\\'"
+       :hook (typescript-mode . lsp-deferred)
+       :config
+       (setq typescript-indent-level 2))
+
+   #+end_src
 
 * EXWM Configuration
   The ~exwm~ package allows you to use emacs as a window manager. I broke out

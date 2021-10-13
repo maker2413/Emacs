@@ -1,5 +1,12 @@
+;; -----------------------------------------------------------------------------
+;; Note this file is generated from the README.org file. Any changes made to
+;; this file will be wiped when new changes are added to the README.org. Please
+;; edit the README.org for any changes you desire.
+;; -----------------------------------------------------------------------------
+
 (setq inhibit-startup-message t)
 
+;; Clean up the UI
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -7,11 +14,14 @@
 
 (menu-bar-mode -1)
 
+;; Flash instead of beep
 (setq visible-bell t)
 
+;; Show line numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
+;; Spaces > tabs
 (setq-default indent-tabs-mode nil)
 
 ;; Set frame transparency
@@ -115,7 +125,8 @@
 
 (dolist (mode '(eshell-mode-hook
                 shell-mode-hook
-                term-mode-hook))
+                term-mode-hook
+                treemacs-mode-hook))
   (add-hook mode(lambda() (display-line-numbers-mode 0))))
 
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
@@ -144,3 +155,43 @@
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+(defun heph/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . heph/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-l")
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-treemacs
+  :after lsp)
+
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+         ("<tab>" . company-complete-selection))
+        (:map lsp-mode-map
+         ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
