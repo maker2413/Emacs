@@ -129,8 +129,18 @@
                 treemacs-mode-hook))
   (add-hook mode(lambda() (display-line-numbers-mode 0))))
 
+;; Make org mode auto new line after the 80th character
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+;; Updated last_modified heading if present after file save
+(add-hook 'org-mode-hook (lambda ()
+                           (setq-local time-stamp-active t
+                                       time-stamp-line-limit 8
+                                       time-stamp-start "^#\\+last_modified: [ \t]*"
+                                       time-stamp-end "$"
+                                       time-stamp-format "\[%Y-%m-%d %a %H:%M:%S\]")
+                           (add-hook 'before-save-hook 'time-stamp nil 'local)))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -144,6 +154,7 @@
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
+;; Run org-babel-tangle-config function after save of org file
 (add-hook 'org-mode-hook
           (lambda ()
             (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
@@ -156,6 +167,28 @@
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+(use-package org-roam
+  :ensure t
+  :init
+  ;; Disable v2 warning message
+  (setq org-roam-v2-ack t)
+  :custom
+  ;; My Roam Notes directory
+  (org-roam-directory "~/RoamNotes")
+  (org-roam-capture-templates
+   ;; My default org-roam template
+   '(("d" "default" plain
+      "\n%?"
+      :if-new (file+head
+               "${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n\n")
+      :unnarrowed t)))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
 
 (defun heph/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
