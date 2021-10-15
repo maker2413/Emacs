@@ -66,6 +66,12 @@
           ([?\s-p] . windmove-up)
           ([?\s-n] . windmove-down)
 
+          ;; Switch between line and char mode
+          ([?\s-i] . exwm-input-toggle-keyboard)
+
+          ;; Toggle Fullscreen
+          ([?\s-F] . exwm-layout-toggle-fullscreen)
+
           ;; Switch workspaces
           ([?\s-w] . exwm-workspace-switch)
           ([s-escape] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
