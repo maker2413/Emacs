@@ -1,7 +1,9 @@
 %backup%~
 .cache
 .lsp-session-v1
+.org-id-locations
 auto-save-list
+bookmarks
 elpa
 org-roam.db
 tramp

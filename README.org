@@ -336,12 +336,25 @@ appropriate elisp files. I will cover how this is done further in this document.
        (org-roam-directory "~/RoamNotes")
        (org-roam-capture-templates
         ;; My default org-roam template
-        '(("d" "default" plain
-           "\n%?"
+        '(("d" "Default" plain
+           (file "~/RoamNotes/RoamTemplates/DefaultTemplate.org")
            :if-new (file+head
                     "${slug}.org"
-                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n\n\n")
-           :unnarrowed t)))
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
+           :unnarrowed t)
+          ("l" "Programming Language" plain
+           (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
+           :if-new (file+head
+                    "Projects/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
+           :unnarrowed t)
+          ("p" "Project" plain
+           (file "~/RoamNotes/RoamTemplates/ProjectTemplate.org")
+           :if-new (file+head
+                    "Projects/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
+           :unnarrowed t)
+        ))
        :bind (("C-c n l" . org-roam-buffer-toggle)
               ("C-c n f" . org-roam-node-find)
               ("C-c n i" . org-roam-node-insert))
