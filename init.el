@@ -162,6 +162,7 @@
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("ba" . "src bash"))
+(add-to-list 'org-structure-template-alist '("C" . "src c"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
@@ -187,7 +188,7 @@
      ("l" "Programming Language" plain
       (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
       :if-new (file+head
-               "Projects/${slug}.org"
+               "ProgrammingLanguages/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
       :unnarrowed t)
      ("p" "Project" plain
