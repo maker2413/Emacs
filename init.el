@@ -185,10 +185,22 @@
                "${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
       :unnarrowed t)
+     ("o" "One Offs" plain
+      (file "~/RoamNotes/RoamTemplates/DefaultTemplate.org")
+      :if-new (file+head
+               "OneOffs/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: OneOff")
+      :unnarrowed t)
      ("l" "Programming Language" plain
       (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
       :if-new (file+head
                "ProgrammingLanguages/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
+      :unnarrowed t)
+     ("b" "Programming Language Basics" plain
+      (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
+      :if-new (file+head
+               "ProgrammingLanguages/Basics/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
       :unnarrowed t)
      ("p" "Project" plain
