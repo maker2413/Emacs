@@ -162,6 +162,8 @@
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("ba" . "src bash"))
+;; Remove "C" structure template to map "C" to "src C"
+(delete '("C" . "comment") org-structure-template-alist)
 (add-to-list 'org-structure-template-alist '("C" . "src c"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
@@ -201,7 +203,7 @@
       (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
       :if-new (file+head
                "ProgrammingLanguages/Basics/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage Basics")
       :unnarrowed t)
      ("p" "Project" plain
       (file "~/RoamNotes/RoamTemplates/ProjectTemplate.org")
