@@ -340,31 +340,31 @@ appropriate elisp files. I will cover how this is done further in this document.
        (org-roam-capture-templates
         ;; My default org-roam template
         '(("d" "Default" plain
-           (file "~/RoamNotes/RoamTemplates/DefaultTemplate.org")
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
            :if-new (file+head
                     "${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
            :unnarrowed t)
           ("o" "One Offs" plain
-           (file "~/RoamNotes/RoamTemplates/DefaultTemplate.org")
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
            :if-new (file+head
                     "OneOffs/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: OneOff")
            :unnarrowed t)
           ("l" "Programming Language" plain
-           (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
+           (file "~/Notes/RoamTemplates/ProgrammingLanguageTemplate.org")
            :if-new (file+head
                     "ProgrammingLanguages/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
            :unnarrowed t)
           ("b" "Programming Language Basics" plain
-           (file "~/RoamNotes/RoamTemplates/ProgrammingLanguageTemplate.org")
+           (file "~/Notes/RoamTemplates/ProgrammingLanguageTemplate.org")
            :if-new (file+head
                     "ProgrammingLanguages/Basics/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage Basics")
            :unnarrowed t)
           ("p" "Project" plain
-           (file "~/RoamNotes/RoamTemplates/ProjectTemplate.org")
+           (file "~/Notes/RoamTemplates/ProjectTemplate.org")
            :if-new (file+head
                     "Projects/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
