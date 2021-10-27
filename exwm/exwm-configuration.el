@@ -21,7 +21,6 @@
   ;; Also take a look at display-time-format and format-time-string
 
   ;; Launch apps that will run in the background
-  (heph/run-in-background "flameshot")
   (heph/run-in-background "nitrogen --restore")
   (heph/run-in-background "picom")
   (heph/run-in-background "xbindkeys")
