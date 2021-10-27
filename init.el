@@ -178,7 +178,7 @@
   (setq org-roam-v2-ack t)
   :custom
   ;; My Roam Notes directory
-  (org-roam-directory "~/RoamNotes")
+  (org-roam-directory "~/Notes")
   (org-roam-capture-templates
    ;; My default org-roam template
    '(("d" "Default" plain

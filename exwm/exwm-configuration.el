@@ -24,6 +24,7 @@
   (heph/run-in-background "flameshot")
   (heph/run-in-background "nitrogen --restore")
   (heph/run-in-background "picom")
+  (heph/run-in-background "xbindkeys")
   )
 
 (use-package exwm

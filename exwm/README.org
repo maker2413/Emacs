@@ -76,6 +76,7 @@ cover the desktop entry I use so I can select exwm from my login screen
       (heph/run-in-background "flameshot")
       (heph/run-in-background "nitrogen --restore")
       (heph/run-in-background "picom")
+      (heph/run-in-background "xbindkeys")
       )
 
   #+end_src
