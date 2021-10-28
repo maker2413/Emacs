@@ -460,6 +460,10 @@ appropriate elisp files. I will cover how this is done further in this document.
    This section will cover the different mode packages I use for the various
    development languages I work with:
    #+begin_src emacs-lisp
+     (use-package docker-compose-mode)
+
+     (use-package terraform-mode)
+
      (use-package typescript-mode
        :mode "\\.ts\\'"
        :hook (typescript-mode . lsp-deferred)

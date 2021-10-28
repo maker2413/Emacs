@@ -252,6 +252,10 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package docker-compose-mode)
+
+(use-package terraform-mode)
+
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :hook (typescript-mode . lsp-deferred)
