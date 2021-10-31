@@ -301,6 +301,19 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+** Org Bullets
+   The ~org-bullets~ packages simply allows us to "clean" up the ~*~ characters
+   in front of our headers but making all but the last one invisible or to edit
+   how the bullets appear. Here is the ~org-bullets~ setup I use in my emacs
+   configuration:
+   #+begin_src emacs-lisp
+     (use-package org-bullets
+       :after org
+       :hook (org-mode . org-bullets-mode)
+       :custom
+       (org-bullets-bullet-list '("◉" "○" "●" "○" "✸" "○")))
+   #+end_src
+
 ** Structure Templates
    This block setups some org structure templates for various source blocks I
    use often. With these in place I can simply type ~<el~ and hit tab to

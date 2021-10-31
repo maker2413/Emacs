@@ -159,6 +159,12 @@
           (lambda ()
             (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
 
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "✸" "○")))
+
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("ba" . "src bash"))
