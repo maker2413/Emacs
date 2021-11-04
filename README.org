@@ -44,6 +44,9 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      ;; Spaces > tabs
      (setq-default indent-tabs-mode nil)
+     (setq tab-width 2)
+     (setq c-basic-offset 2)
+     (setq sh-basic-offset 2)
 
      ;; Set frame transparency
      (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
@@ -490,6 +493,11 @@ appropriate elisp files. I will cover how this is done further in this document.
    This section will cover the different mode packages I use for the various
    development languages I work with:
    #+begin_src emacs-lisp
+     (add-hook 'python-mode-hook
+               (lambda()
+                 (setq tab-width 2)
+                 (setq py-indent-offset 2)))
+
      (use-package docker-compose-mode)
 
      (use-package terraform-mode)
@@ -507,6 +515,8 @@ appropriate elisp files. I will cover how this is done further in this document.
   #+begin_src emacs-lisp
     (add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
     (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+
+    (use-package auto-package-update)
 
   #+end_src
 

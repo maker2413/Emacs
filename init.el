@@ -26,6 +26,9 @@
 
 ;; Spaces > tabs
 (setq-default indent-tabs-mode nil)
+(setq tab-width 2)
+(setq c-basic-offset 2)
+(setq sh-basic-offset 2)
 
 ;; Set frame transparency
 (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
@@ -269,6 +272,11 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(add-hook 'python-mode-hook
+          (lambda()
+            (setq tab-width 2)
+            (setq py-indent-offset 2)))
+
 (use-package docker-compose-mode)
 
 (use-package terraform-mode)
@@ -281,3 +289,5 @@
 
 (add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+
+(use-package auto-package-update)

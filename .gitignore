@@ -1,5 +1,6 @@
 %backup%~
 .cache
+.last-package-update-day
 .lsp-session-v1
 .org-id-locations
 auto-save-list
