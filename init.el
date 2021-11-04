@@ -7,7 +7,8 @@
 (setq inhibit-startup-message t)
 
 ;; Clean up the UI
-(scroll-bar-mode -1)
+(if (display-graphic-p)
+    (scroll-bar-mode -1))
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 10)
@@ -217,6 +218,12 @@
                "Projects/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
       :unnarrowed t)
+     ("t" "Tool" plain
+      (file "~/Notes/RoamTemplates/ToolTemplate.org")
+      :if-new (file+head
+               "Tools/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Tool")
+      :unnarrowed t)
    ))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
@@ -267,3 +274,6 @@
   :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2))
+
+(add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'markdown-mode-hook 'turn-on-auto-fill)

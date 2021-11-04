@@ -25,7 +25,8 @@ appropriate elisp files. I will cover how this is done further in this document.
      (setq inhibit-startup-message t)
 
      ;; Clean up the UI
-     (scroll-bar-mode -1)
+     (if (display-graphic-p)
+         (scroll-bar-mode -1))
      (tool-bar-mode -1)
      (tooltip-mode -1)
      (set-fringe-mode 10)
@@ -382,6 +383,12 @@ appropriate elisp files. I will cover how this is done further in this document.
                     "Projects/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
            :unnarrowed t)
+          ("t" "Tool" plain
+           (file "~/Notes/RoamTemplates/ToolTemplate.org")
+           :if-new (file+head
+                    "Tools/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Tool")
+           :unnarrowed t)
         ))
        :bind (("C-c n l" . org-roam-buffer-toggle)
               ("C-c n f" . org-roam-node-find)
@@ -484,6 +491,14 @@ appropriate elisp files. I will cover how this is done further in this document.
        (setq typescript-indent-level 2))
 
    #+end_src
+
+* Misc Configuration
+  This is just some minor tweaks that I have as well in my emacs config.
+  #+begin_src emacs-lisp
+    (add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
+    (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+
+  #+end_src
 
 * EXWM Configuration
   The ~exwm~ package allows you to use emacs as a window manager. I broke out
