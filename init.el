@@ -168,6 +168,8 @@
   :custom
   (org-bullets-bullet-list '("◉" "○" "●" "○" "✸" "○")))
 
+(add-hook 'org-mode-hook 'flyspell-mode)
+
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("ba" . "src bash"))

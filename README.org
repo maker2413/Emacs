@@ -317,6 +317,14 @@ appropriate elisp files. I will cover how this is done further in this document.
        (org-bullets-bullet-list '("◉" "○" "●" "○" "✸" "○")))
    #+end_src
 
+** Org Mode Spell Check
+   If you are like me and mistype things somewhat often you are going to want
+   spell check in your org-mode config:
+   #+begin_src emacs-lisp
+     (add-hook 'org-mode-hook 'flyspell-mode)
+
+   #+end_src
+
 ** Structure Templates
    This block setups some org structure templates for various source blocks I
    use often. With these in place I can simply type ~<el~ and hit tab to
