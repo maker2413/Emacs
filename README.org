@@ -494,6 +494,13 @@ appropriate elisp files. I will cover how this is done further in this document.
    This section will cover the different mode packages I use for the various
    development languages I work with:
    #+begin_src emacs-lisp
+     (add-hook 'css-mode-hook 'lsp
+               (lambda()
+                 (setq tab-width 2)
+                 (setq css-indent-offset 2)))
+
+     (add-hook 'html-mode-hook 'lsp)
+
      (add-hook 'python-mode-hook
                (lambda()
                  (setq tab-width 2)

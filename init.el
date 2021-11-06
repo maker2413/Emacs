@@ -273,6 +273,13 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(add-hook 'css-mode-hook 'lsp
+          (lambda()
+            (setq tab-width 2)
+            (setq css-indent-offset 2)))
+
+(add-hook 'html-mode-hook 'lsp)
+
 (add-hook 'python-mode-hook
           (lambda()
             (setq tab-width 2)
