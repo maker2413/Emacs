@@ -7,4 +7,5 @@ auto-save-list
 bookmarks
 elpa
 org-roam.db
+private
 tramp
