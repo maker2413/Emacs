@@ -199,38 +199,14 @@
    '(("d" "Default" plain
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
       :if-new (file+head
-               "${slug}.org"
+               "Content/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
-      :unnarrowed t)
-     ("o" "One Offs" plain
-      (file "~/Notes/RoamTemplates/DefaultTemplate.org")
-      :if-new (file+head
-               "OneOffs/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: OneOff")
-      :unnarrowed t)
-     ("l" "Programming Language" plain
-      (file "~/Notes/RoamTemplates/ProgrammingLanguageTemplate.org")
-      :if-new (file+head
-               "ProgrammingLanguages/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
-      :unnarrowed t)
-     ("b" "Programming Language Basics" plain
-      (file "~/Notes/RoamTemplates/ProgrammingLanguageTemplate.org")
-      :if-new (file+head
-               "ProgrammingLanguages/Basics/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage Basics")
       :unnarrowed t)
      ("p" "Project" plain
       (file "~/Notes/RoamTemplates/ProjectTemplate.org")
       :if-new (file+head
                "Projects/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
-      :unnarrowed t)
-     ("t" "Tool" plain
-      (file "~/Notes/RoamTemplates/ToolTemplate.org")
-      :if-new (file+head
-               "Tools/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Tool")
       :unnarrowed t)
    ))
   :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -247,7 +223,7 @@
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . heph/lsp-mode-setup)
   :init
-  (setq lsp-keymap-prefix "C-l")
+  (setq lsp-keymap-prefix "C-;")
   :config
   (lsp-enable-which-key-integration t))
 
