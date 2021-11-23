@@ -418,6 +418,17 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+*** Org Roam UI
+    The ~org-roam-ui~ package just adds a fancy web frontend to your ~org-roam~
+    db that lets you explore your "brain". At the moment this is more just for
+    fun but the project is constantly being developed and will become something
+    great one day (I hope). Check out their GitHub for a better idea of what it
+    looks like: [[https://github.com/org-roam/org-roam-ui][GitHub]].
+    #+begin_src emacs-lisp
+      (use-package org-roam-ui)
+
+    #+end_src
+
 * Development Configurations
   This section will cover various packages and configurations I have setup for
   development work.
