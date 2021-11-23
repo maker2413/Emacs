@@ -367,17 +367,47 @@ appropriate elisp files. I will cover how this is done further in this document.
        (org-roam-directory "~/Notes")
        (org-roam-capture-templates
         ;; My default org-roam template
-        '(("d" "Default" plain
+        '(("c" "Concepts" plain
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+           :if-new (file+head
+                    "Content/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Concept")
+           :unnarrowed t)
+          ("d" "Default" plain
            (file "~/Notes/RoamTemplates/DefaultTemplate.org")
            :if-new (file+head
                     "Content/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
+           :unnarrowed t)
+          ("o" "One Off" plain
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+           :if-new (file+head
+                    "Content/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: OneOff")
+           :unnarrowed t)
+          ("l" "Programming Language" plain
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+           :if-new (file+head
+                    "Content/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage")
+           :unnarrowed t)
+          ("b" "Programming Language Basics" plain
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+           :if-new (file+head
+                    "Content/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ProgrammingLanguage Basics")
            :unnarrowed t)
           ("p" "Project" plain
            (file "~/Notes/RoamTemplates/ProjectTemplate.org")
            :if-new (file+head
                     "Projects/${slug}.org"
                     "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
+           :unnarrowed t)
+          ("t" "Tool" plain
+           (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+           :if-new (file+head
+                    "Content/${slug}.org"
+                    "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Tool")
            :unnarrowed t)
         ))
        :bind (("C-c n l" . org-roam-buffer-toggle)
