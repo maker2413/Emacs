@@ -232,6 +232,12 @@
                "Projects/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Project")
       :unnarrowed t)
+     ("r" "Reference" plain
+      (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+      :if-new (file+head
+               "Content/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Reference")
+      :unnarrowed t)
      ("t" "Tool" plain
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
       :if-new (file+head
