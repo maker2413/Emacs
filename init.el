@@ -252,7 +252,15 @@
   :config
   (org-roam-setup))
 
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:20}" 'face 'org-tag)))
+
 (use-package org-roam-ui)
+
+(add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+(add-hook 'markdown-mode-hook 'flyspell-mode)
 
 (defun heph/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
@@ -317,7 +325,11 @@
   :config
   (setq typescript-indent-level 2))
 
-(add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
-
+;; auto-package-update lets you update your installed packages
 (use-package auto-package-update)
+
+;; On MacOS make GUI emacs load user environment
+(use-package exec-path-from-shell)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
