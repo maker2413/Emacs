@@ -182,6 +182,7 @@
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
+(add-to-list 'org-structure-template-alist '("json" . "src json"))
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
@@ -316,6 +317,8 @@
             (setq py-indent-offset 2)))
 
 (use-package docker-compose-mode)
+
+(use-package jsonnet-mode)
 
 (use-package terraform-mode)
 
