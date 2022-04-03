@@ -297,6 +297,35 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
+;;; Commentary:
+;;; Code:
+(require 'jsonnet-mode)
+(require 'lsp-mode)
+
+(defcustom lsp-jsonnet-executable "jsonnet-language-server"
+  "Command to start the Jsonnet language server."
+  :group 'lsp-jsonnet
+  :risky t
+  :type 'file)
+
+;; Configure lsp-mode language identifiers.
+(add-to-list 'lsp-language-id-configuration '(jsonnet-mode . "jsonnet"))
+(add-to-list 'lsp-language-id-configuration '(jsonnet-mode . "libsonnet"))
+
+;; Register jsonnet-language-server with the LSP client.
+(lsp-register-client
+ (make-lsp-client
+  :new-connection (lsp-stdio-connection (lambda () lsp-jsonnet-executable))
+  :activation-fn (lsp-activate-on (and "jsonnet" "libsonnet"))
+  :server-id 'jsonnet))
+
+;; Start the language server whenever jsonnet-mode is used.
+(add-hook 'jsonnet-mode-hook #'lsp-deferred)
+
+(provide 'jsonnet-language-server)
+;;; jsonnet-language-server.el ends here
+
 (add-hook 'css-mode-hook
           (lambda()
             (setq tab-width 2)
@@ -328,6 +357,10 @@
   :config
   (setq typescript-indent-level 2))
 
+;; magit configuration
+(use-package magit
+  :ensure t)
+
 ;; auto-package-update lets you update your installed packages
 (use-package auto-package-update)
 
@@ -336,3 +369,16 @@
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(magit which-key use-package typescript-mode terraform-mode rainbow-delimiters org-roam-ui org-bullets lua-mode lsp-ui lsp-treemacs jsonnet-mode json-reformat json-mode helpful groovy-mode go-mode fish-mode exwm exec-path-from-shell eldoc doom-themes doom-modeline dockerfile-mode docker-compose-mode diminish dash-functional counsel company-box auto-package-update all-the-icons-ivy-rich afternoon-theme)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

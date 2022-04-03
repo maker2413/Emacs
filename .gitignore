@@ -9,4 +9,5 @@ elpa
 org-roam.db
 private
 tramp
+transient
 url

@@ -528,6 +528,41 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+*** Jsonnet Language Server
+    Since jsonnet isn't in the default list of available language servers for
+    ~lsp-mode~ I define my own that I found from [[https://github.com/jdbaldry/jsonnet-language-server/blob/main/editor/jsonnet-language-server.el][here]]:
+    #+begin_src emacs-lisp
+      ;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
+      ;;; Commentary:
+      ;;; Code:
+      (require 'jsonnet-mode)
+      (require 'lsp-mode)
+
+      (defcustom lsp-jsonnet-executable "jsonnet-language-server"
+        "Command to start the Jsonnet language server."
+        :group 'lsp-jsonnet
+        :risky t
+        :type 'file)
+
+      ;; Configure lsp-mode language identifiers.
+      (add-to-list 'lsp-language-id-configuration '(jsonnet-mode . "jsonnet"))
+      (add-to-list 'lsp-language-id-configuration '(jsonnet-mode . "libsonnet"))
+
+      ;; Register jsonnet-language-server with the LSP client.
+      (lsp-register-client
+       (make-lsp-client
+        :new-connection (lsp-stdio-connection (lambda () lsp-jsonnet-executable))
+        :activation-fn (lsp-activate-on (and "jsonnet" "libsonnet"))
+        :server-id 'jsonnet))
+
+      ;; Start the language server whenever jsonnet-mode is used.
+      (add-hook 'jsonnet-mode-hook #'lsp-deferred)
+
+      (provide 'jsonnet-language-server)
+      ;;; jsonnet-language-server.el ends here
+
+    #+end_src
+
 ** Language Packages
    This section will cover the different mode packages I use for the various
    development languages I work with:
@@ -562,6 +597,16 @@ appropriate elisp files. I will cover how this is done further in this document.
        :hook (typescript-mode . lsp-deferred)
        :config
        (setq typescript-indent-level 2))
+
+   #+end_src
+
+** Magit Configuration
+   The ~magit~ packages allows you to interact with git repositories and run all
+   you git commands without having to leave emacs:
+   #+begin_src emacs-lisp
+     ;; magit configuration
+     (use-package magit
+       :ensure t)
 
    #+end_src
 
