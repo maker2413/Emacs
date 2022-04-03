@@ -78,6 +78,22 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+** Maximize Buffer
+   I have this blob in my emacs config so I can have a keybinding with maximize
+   a buffer on a toggle so I can temporarily focus on one thing when needed:
+   #+begin_src emacs-lisp
+     (defun toggle-maximize-buffer () "Maximize buffer"
+       (interactive)
+       (if (= 1 (length (window-list)))
+           (jump-to-register '_)
+         (progn
+           (window-configuration-to-register '_)
+           (delete-other-windows))))
+
+     (global-set-key (kbd "C-c 1") 'toggle-maximize-buffer)
+
+   #+end_src
+
 * Package Configuration
   I first add melpa to the package repository and initialize packages. I also
   refresh packages contents if package archive contents doesn't exist. Finally I

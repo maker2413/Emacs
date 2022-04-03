@@ -44,6 +44,16 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+(defun toggle-maximize-buffer () "Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_)
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
+
+(global-set-key (kbd "C-c 1") 'toggle-maximize-buffer)
+
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -369,16 +379,3 @@
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(magit which-key use-package typescript-mode terraform-mode rainbow-delimiters org-roam-ui org-bullets lua-mode lsp-ui lsp-treemacs jsonnet-mode json-reformat json-mode helpful groovy-mode go-mode fish-mode exwm exec-path-from-shell eldoc doom-themes doom-modeline dockerfile-mode docker-compose-mode diminish dash-functional counsel company-box auto-package-update all-the-icons-ivy-rich afternoon-theme)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
