@@ -548,6 +548,8 @@ appropriate elisp files. I will cover how this is done further in this document.
     Since jsonnet isn't in the default list of available language servers for
     ~lsp-mode~ I define my own that I found from [[https://github.com/jdbaldry/jsonnet-language-server/blob/main/editor/jsonnet-language-server.el][here]]:
     #+begin_src emacs-lisp
+      (use-package jsonnet-mode)
+
       ;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
       ;;; Commentary:
       ;;; Code:
@@ -603,8 +605,6 @@ appropriate elisp files. I will cover how this is done further in this document.
                  (setq py-indent-offset 2)))
 
      (use-package docker-compose-mode)
-
-     (use-package jsonnet-mode)
 
      (use-package terraform-mode)
 

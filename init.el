@@ -307,6 +307,8 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package jsonnet-mode)
+
 ;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;;; Commentary:
 ;;; Code:
@@ -357,8 +359,6 @@
 
 (use-package docker-compose-mode)
 
-(use-package jsonnet-mode)
-
 (use-package terraform-mode)
 
 (use-package typescript-mode
@@ -379,3 +379,16 @@
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(exec-path-from-shell auto-package-update magit typescript-mode terraform-mode docker-compose-mode jsonnet-mode which-key use-package rainbow-delimiters org-roam-ui org-bullets lsp-ui lsp-treemacs helpful doom-themes doom-modeline diminish counsel company-box all-the-icons-ivy-rich)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
