@@ -8,6 +8,7 @@ bookmarks
 elpa
 org-roam.db
 private
+session*
 tramp
 transient
 url

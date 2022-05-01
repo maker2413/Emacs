@@ -548,9 +548,9 @@ appropriate elisp files. I will cover how this is done further in this document.
     Since jsonnet isn't in the default list of available language servers for
     ~lsp-mode~ I define my own that I found from [[https://github.com/jdbaldry/jsonnet-language-server/blob/main/editor/jsonnet-language-server.el][here]]:
     #+begin_src emacs-lisp
-      ;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
-      ;;; Commentary:
-      ;;; Code:
+      ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
+      ;; Commentary:
+      ;; Code:
       (require 'jsonnet-mode)
       (require 'lsp-mode)
 
@@ -621,8 +621,7 @@ appropriate elisp files. I will cover how this is done further in this document.
    you git commands without having to leave emacs:
    #+begin_src emacs-lisp
      ;; magit configuration
-     (use-package magit
-       :ensure t)
+     (use-package magit)
 
    #+end_src
 

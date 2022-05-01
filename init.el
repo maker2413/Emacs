@@ -307,9 +307,9 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-;;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
-;;; Commentary:
-;;; Code:
+;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
+;; Commentary:
+;; Code:
 (require 'jsonnet-mode)
 (require 'lsp-mode)
 
@@ -368,8 +368,7 @@
   (setq typescript-indent-level 2))
 
 ;; magit configuration
-(use-package magit
-  :ensure t)
+(use-package magit)
 
 ;; auto-package-update lets you update your installed packages
 (use-package auto-package-update)
