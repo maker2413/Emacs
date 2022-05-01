@@ -357,8 +357,6 @@
 
 (use-package docker-compose-mode)
 
-(use-package jsonnet-mode)
-
 (use-package terraform-mode)
 
 (use-package typescript-mode
