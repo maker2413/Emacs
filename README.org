@@ -612,6 +612,8 @@ appropriate elisp files. I will cover how this is done further in this document.
        :config
        (setq typescript-indent-level 2))
 
+     (use-package yasnippet)
+
    #+end_src
 
 ** Magit Configuration

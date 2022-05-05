@@ -365,6 +365,8 @@
   :config
   (setq typescript-indent-level 2))
 
+(use-package yasnippet)
+
 ;; magit configuration
 (use-package magit)
 
