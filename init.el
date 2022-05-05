@@ -52,7 +52,7 @@
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
-(global-set-key (kbd "C-c 1") 'toggle-maximize-buffer)
+(global-set-key (kbd "C-x !") 'toggle-maximize-buffer)
 
 (require 'package)
 
