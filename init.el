@@ -273,6 +273,39 @@
 (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 
+(add-hook 'css-mode-hook
+          (lambda()
+            (setq tab-width 2)
+            (setq css-indent-offset 2)))
+(add-hook 'css-mode-hook 'lsp)
+
+(add-hook 'html-mode-hook 'lsp)
+
+(add-hook 'js-mode-hook
+          (lambda()
+            (setq tab-width 2)
+            (setq js-indent-level 2)))
+(add-hook 'js-mode-hook 'lsp)
+
+(add-hook 'python-mode-hook
+          (lambda()
+            (setq tab-width 2)
+            (setq py-indent-offset 2)))
+
+(use-package docker-compose-mode)
+
+(use-package terraform-mode)
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
+
+(use-package yasnippet)
+
+(use-package jsonnet-mode)
+
 (defun heph/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
@@ -335,37 +368,6 @@
 
 (provide 'jsonnet-language-server)
 ;;; jsonnet-language-server.el ends here
-
-(add-hook 'css-mode-hook
-          (lambda()
-            (setq tab-width 2)
-            (setq css-indent-offset 2)))
-(add-hook 'css-mode-hook 'lsp)
-
-(add-hook 'html-mode-hook 'lsp)
-
-(add-hook 'js-mode-hook
-          (lambda()
-            (setq tab-width 2)
-            (setq js-indent-level 2)))
-(add-hook 'js-mode-hook 'lsp)
-
-(add-hook 'python-mode-hook
-          (lambda()
-            (setq tab-width 2)
-            (setq py-indent-offset 2)))
-
-(use-package docker-compose-mode)
-
-(use-package terraform-mode)
-
-(use-package typescript-mode
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
-  :config
-  (setq typescript-indent-level 2))
-
-(use-package yasnippet)
 
 ;; magit configuration
 (use-package magit)
