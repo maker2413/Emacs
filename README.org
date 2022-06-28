@@ -238,34 +238,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
-** Hydra Configuration
-   I use the ~hydra~ package to build out a hydra (menu) of commands to switch
-   between windows, buffers, and frames. Essentially what this means is if I hit
-   ~C-o~ a hydra will pop up and display a simple menu I made and prompt for key
-   commands as to which window, buffer, or frame I want to swtich to:
-   #+begin_src emacs-lisp
-     (use-package hydra)
-
-     (defhydra hydra-window (global-map "C-o"
-                             :timeout 5
-                             :hint nil)
-       "
-       ^Window Management^
-
-       ^Windows^     ^Buffers^     ^Frame^
-       ^^^^^^^^---------------------------------
-       _f_: next     _n_: next     _TAB_: switch
-       _b_: prev     _p_: prev     ^ ^
-       "
-       ("f" other-window)
-       ("b" (other-window (- 1)))
-       ("n" next-buffer)
-       ("p" previous-buffer)
-       ("TAB" other-frame)
-       ("g" nil "cancel" :color blue))
-
-   #+end_src
-
 * Shell Configuration
   First I start with disabling line numbers in the ~eshell-mode~, ~shell-mode~,
   and ~term-mode~:
@@ -321,6 +293,10 @@ appropriate elisp files. I will cover how this is done further in this document.
                (lambda ()
                  (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
 
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . t)
+        (shell . t)))
    #+end_src
 
 ** Org Bullets

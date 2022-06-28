@@ -119,26 +119,6 @@
 (use-package ivy-rich
   :init (ivy-rich-mode 1))
 
-(use-package hydra)
-
-(defhydra hydra-window (global-map "C-o"
-                        :timeout 5
-                        :hint nil)
-  "
-  ^Window Management^
-
-  ^Windows^     ^Buffers^     ^Frame^
-  ^^^^^^^^---------------------------------
-  _f_: next     _n_: next     _TAB_: switch
-  _b_: prev     _p_: prev     ^ ^
-  "
-  ("f" other-window)
-  ("b" (other-window (- 1)))
-  ("n" next-buffer)
-  ("p" previous-buffer)
-  ("TAB" other-frame)
-  ("g" nil "cancel" :color blue))
-
 (dolist (mode '(eshell-mode-hook
                 shell-mode-hook
                 term-mode-hook
@@ -174,6 +154,11 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (shell . t)))
 
 (use-package org-bullets
   :after org
