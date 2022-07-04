@@ -484,6 +484,8 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package jsonnet-mode)
 
+     (use-package mermaid-mode)
+
    #+end_src
 
 ** Language Servers
