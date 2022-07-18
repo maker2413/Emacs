@@ -509,6 +509,8 @@ appropriate elisp files. I will cover how this is done further in this document.
        :config
        (lsp-enable-which-key-integration t))
 
+     (use-package sly)
+
    #+end_src
 
    I also use a simple package called ~lsp-ui~ to add some more pretty UI
@@ -550,7 +552,7 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      (use-package company
        :after lsp-mode
-       :hook (lsp-mode . company-mode)
+       :hook ((lisp-mode lsp-mode) . company-mode)
        :bind (:map company-active-map
               ("<tab>" . company-complete-selection))
              (:map lsp-mode-map

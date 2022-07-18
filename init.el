@@ -308,6 +308,8 @@
   :config
   (lsp-enable-which-key-integration t))
 
+(use-package sly)
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
@@ -318,7 +320,7 @@
 
 (use-package company
   :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :hook ((lisp-mode lsp-mode) . company-mode)
   :bind (:map company-active-map
          ("<tab>" . company-complete-selection))
         (:map lsp-mode-map
