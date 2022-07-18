@@ -36,7 +36,7 @@
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 135)
 
 ;; Change where temp files are stored
 (setq backup-directory-alist
