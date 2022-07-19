@@ -135,7 +135,7 @@
                                        time-stamp-line-limit 8
                                        time-stamp-start "^#\\+last_modified: [ \t]*"
                                        time-stamp-end "$"
-                                       time-stamp-format "\[%Y-%m-%d %a %H:%M:%S\]")
+                                       time-stamp-format "\[%Y-%m-%d %a %H:%M\]")
                            (add-hook 'before-save-hook 'time-stamp nil 'local)))
 
 (setq org-confirm-babel-evaluate nil)
