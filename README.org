@@ -59,7 +59,7 @@ appropriate elisp files. I will cover how this is done further in this document.
 ** Font Configuration
    Next I have my Font configurations like setting font family and sizes:
    #+begin_src emacs-lisp
-     (set-face-attribute 'default nil :font "Fira Code Retina" :height 135)
+     (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
    #+end_src
 
