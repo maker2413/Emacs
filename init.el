@@ -175,6 +175,7 @@
 (delete '("C" . "comment") org-structure-template-alist)
 (add-to-list 'org-structure-template-alist '("C" . "src c"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("go" . "src go"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
 (add-to-list 'org-structure-template-alist '("json" . "src json"))
@@ -295,6 +296,8 @@
 (use-package mermaid-mode)
 
 (use-package lua-mode)
+
+(use-package go-mode)
 
 (defun heph/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
