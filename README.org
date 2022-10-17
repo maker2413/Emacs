@@ -491,7 +491,9 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package go-mode)
 
-   #+end_src
+     (use-package dockerfile-mode)
+
+     #+end_src
 
 ** Language Servers
    This section will cover the ~lsp-mode~ package and the various configurations
