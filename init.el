@@ -372,8 +372,12 @@
 ;; auto-package-update lets you update your installed packages
 (use-package auto-package-update)
 
-;; On MacOS make GUI emacs load user environment
 (use-package exec-path-from-shell)
 
+;; On MacOS make GUI emacs load user environment
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
+;; Get ssh agent from user shell
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
