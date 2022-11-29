@@ -272,14 +272,14 @@ appropriate elisp files. I will cover how this is done further in this document.
 
 ** Org Babel Configuration
    This block will go over various configurations I have made to org-mode's
-   babel feature. The most import of these is the ~heph/org-babel-tangle-config~
+   babel feature. The most import of these is the ~org-babel-tangle-config~
    function which will automatically tangle any org files in the
    ~~/.config/emacs/~ directory:
    #+begin_src emacs-lisp
      (setq org-confirm-babel-evaluate nil)
 
      ;; Automatically tangle our Emacs.org config file when we save it
-     (defun heph/org-babel-tangle-config ()
+     (defun org-babel-tangle-config ()
        (when (or (string-equal (buffer-file-name)
                                (expand-file-name "~/.config/emacs/README.org"))
                  (string-equal (buffer-file-name)
@@ -291,7 +291,7 @@ appropriate elisp files. I will cover how this is done further in this document.
      ;; Run org-babel-tangle-config function after save of org file
      (add-hook 'org-mode-hook
                (lambda ()
-                 (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
+                 (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
      (org-babel-do-load-languages
       'org-babel-load-languages
@@ -502,13 +502,13 @@ appropriate elisp files. I will cover how this is done further in this document.
    programming languages via "language servers" that use the
    [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]]:
    #+begin_src emacs-lisp
-     (defun heph/lsp-mode-setup ()
+     (defun lsp-mode-setup ()
        (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
        (lsp-headerline-breadcrumb-mode))
 
      (use-package lsp-mode
        :commands (lsp lsp-deferred)
-       :hook (lsp-mode . heph/lsp-mode-setup)
+       :hook (lsp-mode . lsp-mode-setup)
        :init
        (setq lsp-keymap-prefix "C-;")
        :config

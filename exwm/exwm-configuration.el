@@ -1,19 +1,19 @@
-(defun heph/exwm-update-class ()
+;; Enable window switching with mouse hover
+(setq mouse-autoselect-window t)
+
+;; Function to set buffer name to appliction name
+(defun exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
 
-(defun heph/run-in-background (command)
+;; Function to launch application in the background
+(defun run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
     (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-(defun heph/exwm-init-hook ()
+;; Initialization
+(defun exwm-init-hook ()
   ;; Make workspace 1 be the one where we land at startup
   (exwm-workspace-switch-create 1)
-
-  ;; Open eshell by default
-  ;;(eshell)
-
-  ;; Show battery status in the mode line
-  ;;(display-battery-mode 1)
 
   ;; Show the time and date in modeline
   (setq display-time-day-and-date t)
@@ -21,9 +21,9 @@
   ;; Also take a look at display-time-format and format-time-string
 
   ;; Launch apps that will run in the background
-  (heph/run-in-background "nitrogen --restore")
-  (heph/run-in-background "picom")
-  (heph/run-in-background "xbindkeys")
+  (run-in-background "nitrogen --restore")
+  (run-in-background "picom")
+  (run-in-background "xbindkeys")
   )
 
 (use-package exwm
@@ -32,10 +32,10 @@
   (setq exwm-workspace-number 5)
 
   ;; When window "class" updates, use it to set the buffer name
-  (add-hook 'exwm-update-class-hook #'heph/exwm-update-class)
+  (add-hook 'exwm-update-class-hook #'exwm-update-class)
 
   ;; When EXWM starts up, do some extra confifuration
-  (add-hook 'exwm-init-hook #'heph/exwm-init-hook)
+  (add-hook 'exwm-init-hook #'exwm-init-hook)
 
   ;; These keys should always pass through to Emacs
   (setq exwm-input-prefix-keys

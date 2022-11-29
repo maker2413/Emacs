@@ -141,7 +141,7 @@
 (setq org-confirm-babel-evaluate nil)
 
 ;; Automatically tangle our Emacs.org config file when we save it
-(defun heph/org-babel-tangle-config ()
+(defun org-babel-tangle-config ()
   (when (or (string-equal (buffer-file-name)
                           (expand-file-name "~/.config/emacs/README.org"))
             (string-equal (buffer-file-name)
@@ -153,7 +153,7 @@
 ;; Run org-babel-tangle-config function after save of org file
 (add-hook 'org-mode-hook
           (lambda ()
-            (add-hook 'after-save-hook #'heph/org-babel-tangle-config)))
+            (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -301,13 +301,13 @@
 
 (use-package dockerfile-mode)
 
-(defun heph/lsp-mode-setup ()
+(defun lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . heph/lsp-mode-setup)
+  :hook (lsp-mode . lsp-mode-setup)
   :init
   (setq lsp-keymap-prefix "C-;")
   :config
