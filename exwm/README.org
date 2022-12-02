@@ -75,7 +75,6 @@ cover the desktop entry I use so I can select exwm from my login screen
       ;; Launch apps that will run in the background
       (run-in-background "nitrogen --restore")
       (run-in-background "picom")
-      (run-in-background "xbindkeys")
       )
 
   #+end_src

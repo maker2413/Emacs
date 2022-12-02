@@ -23,7 +23,6 @@
   ;; Launch apps that will run in the background
   (run-in-background "nitrogen --restore")
   (run-in-background "picom")
-  (run-in-background "xbindkeys")
   )
 
 (use-package exwm
