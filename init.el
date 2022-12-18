@@ -68,14 +68,16 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;(use-package afternoon-theme)
+(load-theme 'whiteboard t)
+
+;(use-package afternoon)
+
+;(use-package doom-themes
+  ;:init (load-theme 'doom-palenight t))
 
 (use-package doom-modeline
   :init (doom-modeline-mode t)
   :custom ((doom-modeline-height 10)))
-
-(use-package doom-themes
-  :init (load-theme 'doom-palenight t))
 
 (use-package all-the-icons)
 

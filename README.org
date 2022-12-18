@@ -116,10 +116,24 @@ appropriate elisp files. I will cover how this is done further in this document.
   #+end_src
 
 ** Theming Packages
-   These are just my packages that theme aspects of my emacs. I used to use the
-   ~afternoon~ theme for my emacs config:
+   These are just my packages that theme aspects of my emacs. I currently use
+   the built-in ~whiteboard~ theme:
    #+begin_src emacs-lisp
-     ;(use-package afternoon-theme)
+     (load-theme 'whiteboard t)
+
+   #+end_src
+
+   I used to use the ~afternoon~ theme for my emacs config:
+   #+begin_src emacs-lisp
+     ;(use-package afternoon)
+
+   #+end_src
+
+   I also used to use the palenight theme from the ~doom-themes~ package in my
+   emacs configuration:
+   #+begin_src emacs-lisp
+     ;(use-package doom-themes
+       ;:init (load-theme 'doom-palenight t))
 
    #+end_src
 
@@ -128,14 +142,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (use-package doom-modeline
        :init (doom-modeline-mode t)
        :custom ((doom-modeline-height 10)))
-
-   #+end_src
-
-   I use the palenight theme from the ~doom-themes~ package in my emacs
-   configuration:
-   #+begin_src emacs-lisp
-     (use-package doom-themes
-       :init (load-theme 'doom-palenight t))
 
    #+end_src
 
