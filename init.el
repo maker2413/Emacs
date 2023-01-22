@@ -36,6 +36,17 @@
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; Set org-mode for scratch buffer
+(setq initial-major-mode 'org-mode)
+
+;; Set default scratch buffer text
+(setq initial-scratch-message "\
+#+TITLE: Scratch
+This buffer is for text that is not saved, and for Lisp evaluation.
+To create a file, visit it with C-x C-f and enter text in its buffer.
+
+")
+
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
 ;; Change where temp files are stored
@@ -68,9 +79,13 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(load-theme 'whiteboard t)
+(use-package ef-themes
+  :init (load-theme 'ef-light t))
 
-;(use-package afternoon)
+;(load-theme 'whiteboard t)
+
+;(use-package afternoon
+  ;:init (load-theme 'afternoon t))
 
 ;(use-package doom-themes
   ;:init (load-theme 'doom-palenight t))

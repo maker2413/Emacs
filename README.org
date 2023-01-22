@@ -56,6 +56,24 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+** Scratch Configuration
+   I like my scratch buffer to actually be an org-mode buffer and although I can
+   just switch to org-mode in the buffer I set my emacs to do it
+   automatically. I also customize the default text:
+   #+begin_src emacs-lisp
+     ;; Set org-mode for scratch buffer
+     (setq initial-major-mode 'org-mode)
+
+     ;; Set default scratch buffer text
+     (setq initial-scratch-message "\
+     ,#+TITLE: Scratch
+     This buffer is for text that is not saved, and for Lisp evaluation.
+     To create a file, visit it with C-x C-f and enter text in its buffer.
+
+     ")
+
+   #+end_src
+
 ** Font Configuration
    Next I have my Font configurations like setting font family and sizes:
    #+begin_src emacs-lisp
@@ -117,15 +135,23 @@ appropriate elisp files. I will cover how this is done further in this document.
 
 ** Theming Packages
    These are just my packages that theme aspects of my emacs. I currently use
-   the built-in ~whiteboard~ theme:
+   the ~ef-light~ theme in the ~ef-themes~ package:
    #+begin_src emacs-lisp
-     (load-theme 'whiteboard t)
+     (use-package ef-themes
+       :init (load-theme 'ef-light t))
+
+   #+end_src
+
+   I also used to use the built-in ~whiteboard~ theme:
+   #+begin_src emacs-lisp
+     ;(load-theme 'whiteboard t)
 
    #+end_src
 
    I used to use the ~afternoon~ theme for my emacs config:
    #+begin_src emacs-lisp
-     ;(use-package afternoon)
+     ;(use-package afternoon
+       ;:init (load-theme 'afternoon t))
 
    #+end_src
 
