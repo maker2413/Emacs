@@ -332,6 +332,10 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package sly)
 
+;; Add hook to go-mode for lsp and yasnippet
+(add-hook 'go-mode-hook #'lsp-deferred)
+(add-hook 'go-mode-hook #'yas-minor-mode)
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
