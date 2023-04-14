@@ -212,7 +212,13 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
   (org-roam-directory "~/Notes")
   (org-roam-capture-templates
    ;; My default org-roam template
-   '(("c" "Concepts" plain
+   '(("a" "AI" plain
+      (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+      :if-new (file+head
+               "Content/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: AI ArtificialIntelligence")
+      :unnarrowed t)
+     ("c" "Concepts" plain
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
       :if-new (file+head
                "Content/${slug}.org"
@@ -222,13 +228,25 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
       :if-new (file+head
                "Content/${slug}.org"
-               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n")
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: ")
+      :unnarrowed t)
+     ("m" "Mathematics" plain
+      (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+      :if-new (file+head
+               "Content/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Math Mathematics")
       :unnarrowed t)
      ("o" "One Off" plain
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
       :if-new (file+head
                "Content/${slug}.org"
                "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: OneOff")
+      :unnarrowed t)
+     ("P" "Person" plain
+      (file "~/Notes/RoamTemplates/DefaultTemplate.org")
+      :if-new (file+head
+               "Content/${slug}.org"
+               "#+title: ${title}\n#+created: %U\n#+last_modified: %U\n#+filetags: Person")
       :unnarrowed t)
      ("l" "Programming Language" plain
       (file "~/Notes/RoamTemplates/DefaultTemplate.org")
