@@ -364,6 +364,7 @@ appropriate elisp files. I will cover how this is done further in this document.
      (delete '("C" . "comment") org-structure-template-alist)
      (add-to-list 'org-structure-template-alist '("C" . "src c"))
      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+     (add-to-list 'org-structure-template-alist '("ex" . "example"))
      (add-to-list 'org-structure-template-alist '("go" . "src go"))
      (add-to-list 'org-structure-template-alist '("ja" . "src java"))
      (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
@@ -572,6 +573,13 @@ appropriate elisp files. I will cover how this is done further in this document.
 
    #+end_src
 
+   I also like to use ~electric-pair-mode~ to auto complete closing parenthesis,
+   quotes, and brackets. Luckily this comes shipped with emacs and just has to
+   be enabled:
+   #+begin_src emacs-lisp
+     (electric-pair-mode 1)
+   #+end_src
+
    I also use a simple package called ~lsp-ui~ to add some more pretty UI
    aspects to ~lsp-mode~:
    #+begin_src emacs-lisp
@@ -624,6 +632,35 @@ appropriate elisp files. I will cover how this is done further in this document.
        :hook (company-mode . company-box-mode))
 
    #+end_src
+*** Python Language Server
+    Since python is such a pain to get working "just right" I have a couple of
+    custom settings and functions I have made for my python development
+    environment.
+    #+begin_src emacs-lisp
+      ;; Install lsp-pyright
+      (use-package lsp-pyright
+        :after lsp-mode)
+
+      (defun pyenv-pyright-config ()
+        "Write a 'pyrightconfig.json' file with pyenv environment"
+        (interactive)
+        (setq current-dir (nth 1 (split-string (pwd) " ")))
+        (setq pyenv-file (concat current-dir ".python-version"))
+        (if (file-exists-p pyenv-file)
+            (let* ((venv (f-read-text pyenv-file))
+                   (venvPath (file-truename "~/.pyenv/versions"))
+                   (out-file (concat current-dir "pyrightconfig.json"))
+                   (out-contents (json-encode
+                                  (list :venvPath venvPath :venv
+                                        (substring venv 0 -1)))))
+              (with-temp-file out-file (insert out-contents)))
+          (message "No .python-version in current directory, skipping..."))
+        )
+
+      ;; Add hook to python-mode for lsp
+      (add-hook 'python-mode-hook #'lsp-deferred)
+
+    #+end_src
 
 *** Jsonnet Language Server
     Since jsonnet isn't in the default list of available language servers for

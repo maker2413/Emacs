@@ -192,6 +192,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (delete '("C" . "comment") org-structure-template-alist)
 (add-to-list 'org-structure-template-alist '("C" . "src c"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("ex" . "example"))
 (add-to-list 'org-structure-template-alist '("go" . "src go"))
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
@@ -354,6 +355,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode)
 
+(electric-pair-mode 1)
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
@@ -375,6 +378,29 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
+
+;; Install lsp-pyright
+(use-package lsp-pyright
+  :after lsp-mode)
+
+(defun pyenv-pyright-config ()
+  "Write a 'pyrightconfig.json' file with pyenv environment"
+  (interactive)
+  (setq current-dir (nth 1 (split-string (pwd) " ")))
+  (setq pyenv-file (concat current-dir ".python-version"))
+  (if (file-exists-p pyenv-file)
+      (let* ((venv (f-read-text pyenv-file))
+             (venvPath (file-truename "~/.pyenv/versions"))
+             (out-file (concat current-dir "pyrightconfig.json"))
+             (out-contents (json-encode
+                            (list :venvPath venvPath :venv
+                                  (substring venv 0 -1)))))
+        (with-temp-file out-file (insert out-contents)))
+    (message "No .python-version in current directory, skipping..."))
+  )
+
+;; Add hook to python-mode for lsp
+(add-hook 'python-mode-hook #'lsp-deferred)
 
 ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;; Commentary:
