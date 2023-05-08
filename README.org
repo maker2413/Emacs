@@ -328,7 +328,9 @@ appropriate elisp files. I will cover how this is done further in this document.
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)
-        (shell . t)))
+        (jupyter . t)
+        (shell . t)
+        (python . t)))
    #+end_src
 
 ** Org Bullets
@@ -369,6 +371,7 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'org-structure-template-alist '("ja" . "src java"))
      (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
      (add-to-list 'org-structure-template-alist '("json" . "src json"))
+     (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python"))
      (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
@@ -517,11 +520,6 @@ appropriate elisp files. I will cover how this is done further in this document.
                  (setq js-indent-level 2)))
      (add-hook 'js-mode-hook 'lsp)
 
-     (add-hook 'python-mode-hook
-               (lambda()
-                 (setq tab-width 2)
-                 (setq py-indent-offset 2)))
-
      (use-package docker-compose-mode)
 
      (use-package terraform-mode)
@@ -660,6 +658,15 @@ appropriate elisp files. I will cover how this is done further in this document.
       ;; Add hook to python-mode for lsp
       (add-hook 'python-mode-hook #'lsp-deferred)
 
+    #+end_src
+
+    Along with configuring a python language server I also like to setup and
+    configure ~emacs-jupyter~ so that I can use jupyter notebooks when I am
+    studying topics using python:
+    #+begin_src emacs-lisp
+      (use-package jupyter)
+
+      (use-package ob-jupyter)
     #+end_src
 
 *** Jsonnet Language Server

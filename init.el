@@ -175,7 +175,9 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (shell . t)))
+   (jupyter . t)
+   (shell . t)
+   (python . t)))
 
 (use-package org-bullets
   :after org
@@ -197,6 +199,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-to-list 'org-structure-template-alist '("ja" . "src java"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
 (add-to-list 'org-structure-template-alist '("json" . "src json"))
+(add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python"))
 (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
@@ -310,11 +313,6 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
             (setq js-indent-level 2)))
 (add-hook 'js-mode-hook 'lsp)
 
-(add-hook 'python-mode-hook
-          (lambda()
-            (setq tab-width 2)
-            (setq py-indent-offset 2)))
-
 (use-package docker-compose-mode)
 
 (use-package terraform-mode)
@@ -401,6 +399,10 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 ;; Add hook to python-mode for lsp
 (add-hook 'python-mode-hook #'lsp-deferred)
+
+(use-package jupyter)
+
+(use-package ob-jupyter)
 
 ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;; Commentary:
