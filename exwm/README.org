@@ -45,7 +45,6 @@ cover the desktop entry I use so I can select exwm from my login screen
     ;; Function to set buffer name to appliction name
     (defun exwm-update-class ()
       (exwm-workspace-rename-buffer exwm-class-name))
-
   #+end_src
 
   The next function I have is to allow me to launch applications in the
@@ -55,8 +54,9 @@ cover the desktop entry I use so I can select exwm from my login screen
     ;; Function to launch application in the background
     (defun run-in-background (command)
       (let ((command-parts (split-string command "[ ]+")))
-        (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
+        (apply #'call-process `(,(car command-parts)
+                                nil 0 nil
+                                ,@(cdr command-parts)))))
   #+end_src
 
   This next function is my initialization function and will contain information
@@ -76,7 +76,6 @@ cover the desktop entry I use so I can select exwm from my login screen
       (run-in-background "nitrogen --restore")
       (run-in-background "picom")
       )
-
   #+end_src
 
 * EXWM Configuration
@@ -144,5 +143,4 @@ cover the desktop entry I use so I can select exwm from my login screen
       (exwm-input-set-key (kbd "s-x") 'counsel-linux-app)
 
       (exwm-enable))
-
   #+end_src

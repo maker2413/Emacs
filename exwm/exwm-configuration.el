@@ -8,7 +8,9 @@
 ;; Function to launch application in the background
 (defun run-in-background (command)
   (let ((command-parts (split-string command "[ ]+")))
-    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+    (apply #'call-process `(,(car command-parts)
+                            nil 0 nil
+                            ,@(cdr command-parts)))))
 
 ;; Initialization
 (defun exwm-init-hook ()
