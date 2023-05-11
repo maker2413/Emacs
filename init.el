@@ -172,12 +172,24 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
           (lambda ()
             (add-hook 'after-save-hook #'org-babel-tangle-config)))
 
+(use-package jupyter)
+
+;; This environment variable needs to be set for jupyter to load properly
+(setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1" 1)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (jupyter . t)
    (shell . t)
-   (python . t)))
+   (python . t)
+   (jupyter . t)))
+
+(use-package org-auto-tangle
+  :hook (org-mode . org-auto-tangle-mode))
+
+(setq org-auto-tangle-default t)
+
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
 (use-package org-bullets
   :after org
@@ -355,6 +367,12 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (electric-pair-mode 1)
 
+(add-hook 'org-mode-hook (lambda ()
+                           (setq-local electric-pair-inhibit-predicate
+                                       `(lambda (c)
+                                          (if (char-equal c ?<) t
+                                            (,electric-pair-inhibit-predicate c))))))
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
@@ -399,10 +417,6 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 ;; Add hook to python-mode for lsp
 (add-hook 'python-mode-hook #'lsp-deferred)
-
-(use-package jupyter)
-
-(use-package ob-jupyter)
 
 ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;; Commentary:

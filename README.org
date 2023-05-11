@@ -15,7 +15,6 @@ appropriate elisp files. I will cover how this is done further in this document.
     ;; this file will be wiped when new changes are added to the README.org. Please
     ;; edit the README.org for any changes you desire.
     ;; -----------------------------------------------------------------------------
-
   #+end_src
 
 ** General Configuration
@@ -53,7 +52,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
      (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
      (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
    #+end_src
 
 ** Scratch Configuration
@@ -71,14 +69,12 @@ appropriate elisp files. I will cover how this is done further in this document.
      To create a file, visit it with C-x C-f and enter text in its buffer.
 
      ")
-
    #+end_src
 
 ** Font Configuration
    Next I have my Font configurations like setting font family and sizes:
    #+begin_src emacs-lisp
      (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
-
    #+end_src
 
 ** Temp File Configuration
@@ -93,7 +89,6 @@ appropriate elisp files. I will cover how this is done further in this document.
            `((".*" . ,temporary-file-directory)))
      (setq auto-save-file-name-transforms
            `((".*" ,temporary-file-directory t)))
-
    #+end_src
 
 ** Maximize Buffer
@@ -109,7 +104,6 @@ appropriate elisp files. I will cover how this is done further in this document.
            (delete-other-windows))))
 
      (global-set-key (kbd "C-x !") 'toggle-maximize-buffer)
-
    #+end_src
 
 * Package Configuration
@@ -130,7 +124,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
     (require 'use-package)
     (setq use-package-always-ensure t)
-
   #+end_src
 
 ** Theming Packages
@@ -139,20 +132,17 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      (use-package ef-themes
        :init (load-theme 'ef-light t))
-
    #+end_src
 
    I also used to use the built-in ~whiteboard~ theme:
    #+begin_src emacs-lisp
      ;(load-theme 'whiteboard t)
-
    #+end_src
 
    I used to use the ~afternoon~ theme for my emacs config:
    #+begin_src emacs-lisp
      ;(use-package afternoon
        ;:init (load-theme 'afternoon t))
-
    #+end_src
 
    I also used to use the palenight theme from the ~doom-themes~ package in my
@@ -160,7 +150,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      ;(use-package doom-themes
        ;:init (load-theme 'doom-palenight t))
-
    #+end_src
 
    I use ~doom-modeline~ to clean up the mode line display of emacs:
@@ -168,7 +157,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (use-package doom-modeline
        :init (doom-modeline-mode t)
        :custom ((doom-modeline-height 10)))
-
    #+end_src
 
    I also install ~all-the-icons~, this package simple adds support for icons
@@ -177,7 +165,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    all-the-icons-install-fonts~ after install this package:
    #+begin_src emacs-lisp
      (use-package all-the-icons)
-
    #+end_src
 
 ** Basic Packages
@@ -187,7 +174,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    config to clean up the mode line of some major modes:
    #+begin_src emacs-lisp
      (use-package diminish)
-
    #+end_src
 
    I used to use the ~rainbow-delimiters~ package to color code parenthesis and
@@ -196,7 +182,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      (use-package rainbow-delimiters
        :hook (prog-mode . rainbow-delimiters-mode))
-
    #+end_src
 
 ** Helper Packages
@@ -212,7 +197,6 @@ appropriate elisp files. I will cover how this is done further in this document.
        :diminish
        :config
        (setq which-key-idls-delay 0.5))
-
    #+end_src
 
    I also use the ~helpful~ package to provide more contextual information when
@@ -228,7 +212,6 @@ appropriate elisp files. I will cover how this is done further in this document.
        ([remap describe-command] . helpful-command)
        ([remap describe-variable] . counsel-describe-variable)
        ([remap describe-key] . helpful-key))
-
    #+end_src
 
 ** Ivy Software Configuration
@@ -243,7 +226,6 @@ appropriate elisp files. I will cover how this is done further in this document.
        :bind (("C-s" . swiper))
        :config
        (ivy-mode 1))
-
    #+end_src
 
    With ~ivy~ installed we did also get the ~counsel~ and ~swiper~ packages
@@ -267,7 +249,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package ivy-rich
        :init (ivy-rich-mode 1))
-
    #+end_src
 
 * Shell Configuration
@@ -279,7 +260,6 @@ appropriate elisp files. I will cover how this is done further in this document.
                     term-mode-hook
                     treemacs-mode-hook))
       (add-hook mode(lambda() (display-line-numbers-mode 0))))
-
   #+end_src
 
 * Org Configuration
@@ -299,7 +279,6 @@ appropriate elisp files. I will cover how this is done further in this document.
                                            time-stamp-end "$"
                                            time-stamp-format "\[%Y-%m-%d %a %H:%M\]")
                                (add-hook 'before-save-hook 'time-stamp nil 'local)))
-
   #+end_src
 
 ** Org Babel Configuration
@@ -324,14 +303,44 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-hook 'org-mode-hook
                (lambda ()
                  (add-hook 'after-save-hook #'org-babel-tangle-config)))
+    #+end_src
 
+    I like to use the ~jupyter~ package to enable using jupyter notebooks for
+    python research. Unfortunately for this to be configured properly for
+    org-babel it has to be installed before it can be enabled so I am installing
+    it here as opposed to do in the language servers block of this file:
+    #+begin_src emacs-lisp
+      (use-package jupyter)
+
+      ;; This environment variable needs to be set for jupyter to load properly
+      (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1" 1)
+    #+end_src
+
+    With ~jupyter~ setup we can define our org-babel languages we want to support:
+    #+begin_src emacs-lisp
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((emacs-lisp . t)
-        (jupyter . t)
         (shell . t)
-        (python . t)))
+        (python . t)
+        (jupyter . t)))
    #+end_src
+
+   I have started using the ~auto-tangle~ package to automatically tangle org
+   files. Since this is a newer addition I am trying out I still keep the above
+   example to ensure that my emacs config will always work:
+   #+begin_src emacs-lisp
+     (use-package org-auto-tangle
+       :hook (org-mode . org-auto-tangle-mode))
+
+     (setq org-auto-tangle-default t)
+   #+end_src
+
+   I also like to auto display inline images after changes are made:
+   #+begin_src emacs-lisp :exports none
+     (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+   #+end_src
+
 
 ** Org Bullets
    The ~org-bullets~ packages simply allows us to "clean" up the ~*~ characters
@@ -351,7 +360,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    spell check in your org-mode config:
    #+begin_src emacs-lisp
      (add-hook 'org-mode-hook 'flyspell-mode)
-
    #+end_src
 
 ** Structure Templates
@@ -377,7 +385,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
      (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
      (add-to-list 'org-structure-template-alist '("ya" . "src yaml"))
-
   #+end_src
 
 ** Org Roam Configuration
@@ -475,7 +482,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (setq org-roam-node-display-template
            (concat "${title:*} "
                    (propertize "${tags:20}" 'face 'org-tag)))
-
    #+end_src
 
 *** Org Roam UI
@@ -486,7 +492,6 @@ appropriate elisp files. I will cover how this is done further in this document.
     looks like: [[https://github.com/org-roam/org-roam-ui][GitHub]].
     #+begin_src emacs-lisp
       (use-package org-roam-ui)
-
     #+end_src
 
 * Markdown Configurations
@@ -495,7 +500,6 @@ appropriate elisp files. I will cover how this is done further in this document.
     (add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
     (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
     (add-hook 'markdown-mode-hook 'flyspell-mode)
-
   #+end_src
 
 * Development Configurations
@@ -541,7 +545,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      (use-package go-mode)
 
      (use-package dockerfile-mode)
-
      #+end_src
 
 ** Language Servers
@@ -568,7 +571,6 @@ appropriate elisp files. I will cover how this is done further in this document.
      ;; Add hook to go-mode for lsp and yasnippet
      (add-hook 'go-mode-hook #'lsp-deferred)
      (add-hook 'go-mode-hook #'yas-minor-mode)
-
    #+end_src
 
    I also like to use ~electric-pair-mode~ to auto complete closing parenthesis,
@@ -578,6 +580,16 @@ appropriate elisp files. I will cover how this is done further in this document.
      (electric-pair-mode 1)
    #+end_src
 
+   However I don't want electric pair mode to use every pair in every mode. Here
+   are some of the disabled pairs I have for certain modes:
+   #+begin_src emacs-lisp
+     (add-hook 'org-mode-hook (lambda ()
+                                (setq-local electric-pair-inhibit-predicate
+                                            `(lambda (c)
+                                               (if (char-equal c ?<) t
+                                                 (,electric-pair-inhibit-predicate c))))))
+   #+end_src
+
    I also use a simple package called ~lsp-ui~ to add some more pretty UI
    aspects to ~lsp-mode~:
    #+begin_src emacs-lisp
@@ -585,7 +597,6 @@ appropriate elisp files. I will cover how this is done further in this document.
        :hook (lsp-mode . lsp-ui-mode)
        :custom
        (lsp-ui-doc-position 'bottom))
-
    #+end_src
 
    While we are on the topic of making ~lsp-mode~ look pretty I also have
@@ -594,7 +605,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      (use-package lsp-treemacs
        :after lsp)
-
    #+end_src
    Some of the commands to note about ~lsp-treemacs~ are:
    - lsp-treemacs-symbols:
@@ -628,7 +638,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package company-box
        :hook (company-mode . company-box-mode))
-
    #+end_src
 *** Python Language Server
     Since python is such a pain to get working "just right" I have a couple of
@@ -657,16 +666,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
       ;; Add hook to python-mode for lsp
       (add-hook 'python-mode-hook #'lsp-deferred)
-
-    #+end_src
-
-    Along with configuring a python language server I also like to setup and
-    configure ~emacs-jupyter~ so that I can use jupyter notebooks when I am
-    studying topics using python:
-    #+begin_src emacs-lisp
-      (use-package jupyter)
-
-      (use-package ob-jupyter)
     #+end_src
 
 *** Jsonnet Language Server
@@ -701,7 +700,6 @@ appropriate elisp files. I will cover how this is done further in this document.
 
       (provide 'jsonnet-language-server)
       ;;; jsonnet-language-server.el ends here
-
     #+end_src
 
 ** Magit Configuration
@@ -710,7 +708,6 @@ appropriate elisp files. I will cover how this is done further in this document.
    #+begin_src emacs-lisp
      ;; magit configuration
      (use-package magit)
-
    #+end_src
 
 * Misc Configuration
@@ -728,7 +725,6 @@ appropriate elisp files. I will cover how this is done further in this document.
     ;; Get ssh agent from user shell
     (exec-path-from-shell-copy-env "SSH_AGENT_PID")
     (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
-
   #+end_src
 
 * EXWM Configuration
