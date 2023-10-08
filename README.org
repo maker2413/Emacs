@@ -494,6 +494,13 @@ appropriate elisp files. I will cover how this is done further in this document.
       (use-package org-roam-ui)
     #+end_src
 
+** Weblorg Configuration
+   The [[https://github.com/emacs-love/weblorg][weblorg]] package allows you to easily export org-mode files to a blog. I
+   use it generate my blog: [[https://blog.ethancpost.com]]:
+   #+begin_src emacs-lisp
+     (use-package weblorg)
+   #+end_src
+
 * Markdown Configurations
   Here are some of the tweaks I have made to markdown-mode:
   #+begin_src emacs-lisp
@@ -545,6 +552,8 @@ appropriate elisp files. I will cover how this is done further in this document.
      (use-package go-mode)
 
      (use-package dockerfile-mode)
+
+     (use-package jinja2-mode)
      #+end_src
 
 ** Language Servers

@@ -307,6 +307,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package org-roam-ui)
 
+(use-package weblorg)
+
 (add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 (add-hook 'markdown-mode-hook 'flyspell-mode)
@@ -346,6 +348,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (use-package go-mode)
 
 (use-package dockerfile-mode)
+
+(use-package jinja2-mode)
 
 (defun lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
