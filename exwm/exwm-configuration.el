@@ -63,7 +63,7 @@
 
           ;; Move between windows
           ([?\s-b] . windmove-left)
-          ([?\s-f] . windmove-right)
+          ([?\s-f] . exwm-layout-unset-fullscreen)
           ([?\s-p] . windmove-up)
           ([?\s-n] . windmove-down)
 
@@ -88,3 +88,12 @@
   (exwm-input-set-key (kbd "s-x") 'counsel-linux-app)
 
   (exwm-enable))
+
+(defun exwm-workspace--get-geometry (frame)
+  "Return the geometry of frame FRAME."
+  (or (frame-parameter frame 'exwm-geometry)
+      (make-instance 'xcb:RECTANGLE
+                     :x (window-pixel-left)
+                     :y (window-pixel-top)
+                     :width (window-pixel-width)
+                     :height (window-pixel-height))))
