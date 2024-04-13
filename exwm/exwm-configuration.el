@@ -29,6 +29,9 @@
 
 (use-package exwm
   :config
+  ;; Set resolution
+  (run-in-background "xrandr -s 1920x1080")
+
   ;; Set the default number of workspaces
   (setq exwm-workspace-number 5)
 
