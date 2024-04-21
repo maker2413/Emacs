@@ -4,6 +4,7 @@
 .org-id-locations
 auto-save-list
 bookmarks
+eln-cache
 elpa
 network-security.data
 org-roam.db
