@@ -677,6 +677,12 @@ appropriate elisp files. I will cover how this is done further in this document.
       (add-hook 'python-mode-hook #'lsp-deferred)
     #+end_src
 
+    On top of all of that it can also be helpful to install the ~pyvenv~ package
+    to allow emacs to interact with python venv's:
+    #+begin_src emacs-lisp
+      (use-package pyvenv)
+    #+end_src
+
 *** Jsonnet Language Server
     Since jsonnet isn't in the default list of available language servers for
     ~lsp-mode~ I define my own that I found from [[https://github.com/jdbaldry/jsonnet-language-server/blob/main/editor/jsonnet-language-server.el][here]]:

@@ -422,6 +422,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 ;; Add hook to python-mode for lsp
 (add-hook 'python-mode-hook #'lsp-deferred)
 
+(use-package pyvenv)
+
 ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;; Commentary:
 ;; Code:
