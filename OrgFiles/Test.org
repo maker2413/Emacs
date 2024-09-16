@@ -1,0 +1,9 @@
+* Heading
+** smaller
+*** smaller
+**** smaller
+     Now I will write some text. Here I go, I'm going to write a bit line of
+     text and I hope it indents. Oh great it did! That makes me so happy that my
+     files will looks clean now and indent at 80 characters instead of wrapping
+     around the screen.
+***** Text
