@@ -369,6 +369,13 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode)
 
+;; Make go-mode use spaces instead of tabs
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 4)
+            (setq indent-tabs-mode 1)))
+
 (electric-pair-mode 1)
 
 (add-hook 'org-mode-hook (lambda ()
