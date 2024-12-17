@@ -321,6 +321,11 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (add-hook 'html-mode-hook 'lsp)
 
+;; add support for "gohtml" files
+(setq web-mode-engines-alist
+      '(("go"    . "\\.gohtml\\'"))
+)
+
 (add-hook 'js-mode-hook
           (lambda()
             (setq tab-width 2)
