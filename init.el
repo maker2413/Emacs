@@ -155,6 +155,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
                                        time-stamp-format "\[%Y-%m-%d %a %H:%M\]")
                            (add-hook 'before-save-hook 'time-stamp nil 'local)))
 
+(setq org-src-fontify-natively t)
 (setq org-confirm-babel-evaluate nil)
 
 ;; Automatically tangle our Emacs.org config file when we save it
@@ -176,6 +177,9 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 ;; This environment variable needs to be set for jupyter to load properly
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1" 1)
+
+;;(setq python-shell-interpreter "ipython"
+;;      python-shell-interpreter-args "-i --simple-prompt")
 
 (org-babel-do-load-languages
  'org-babel-load-languages

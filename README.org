@@ -287,6 +287,7 @@ appropriate elisp files. I will cover how this is done further in this document.
    function which will automatically tangle any org files in the
    ~~/.config/emacs/~ directory:
    #+begin_src emacs-lisp
+     (setq org-src-fontify-natively t)
      (setq org-confirm-babel-evaluate nil)
 
      ;; Automatically tangle our Emacs.org config file when we save it
@@ -314,6 +315,9 @@ appropriate elisp files. I will cover how this is done further in this document.
 
       ;; This environment variable needs to be set for jupyter to load properly
       (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1" 1)
+
+      ;;(setq python-shell-interpreter "ipython"
+      ;;      python-shell-interpreter-args "-i --simple-prompt")
     #+end_src
 
     With ~jupyter~ setup we can define our org-babel languages we want to support:
