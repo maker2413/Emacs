@@ -356,6 +356,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package go-mode)
 
+(use-package protobuf-mode)
+
 (use-package dockerfile-mode)
 
 (use-package jinja2-mode)
@@ -378,7 +380,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode)
 
-;; Make go-mode use spaces instead of tabs
+;; Set tab width and before-save-hook for go-mode
 (add-hook 'go-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'gofmt-before-save)
