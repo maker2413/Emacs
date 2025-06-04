@@ -31,8 +31,8 @@
 (setq sh-basic-offset 2)
 
 ;; Set frame transparency
-(set-frame-parameter (selected-frame) 'alpha '(96 . 92))
-(add-to-list 'default-frame-alist '(alpha . (96 . 92)))
+;; (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
+;; (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
