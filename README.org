@@ -254,13 +254,20 @@ appropriate elisp files. I will cover how this is done further in this document.
 * Shell Configuration
   First I start with disabling line numbers in the ~eshell-mode~, ~shell-mode~,
   and ~term-mode~:
-  #+begin_src emacs-lisp
-    (dolist (mode '(eshell-mode-hook
-                    shell-mode-hook
-                    term-mode-hook
-                    treemacs-mode-hook))
-      (add-hook mode(lambda() (display-line-numbers-mode 0))))
-  #+end_src
+   #+begin_src emacs-lisp
+     (dolist (mode '(eshell-mode-hook
+                     shell-mode-hook
+                     term-mode-hook
+                     vterm-mode-hook
+                     treemacs-mode-hook))
+       (add-hook mode(lambda() (display-line-numbers-mode 0))))
+   #+end_src
+
+** Terminal Packages
+   I use ~vterm~ for terminal emulation in emacs:
+   #+begin_src emacs-lisp
+     (use-package vterm)
+   #+end_src
 
 * Org Configuration
   Org or ~org-mode~ is probably the greatest aspect of emacs and I highly

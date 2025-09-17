@@ -139,8 +139,11 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (dolist (mode '(eshell-mode-hook
                 shell-mode-hook
                 term-mode-hook
+                vterm-mode-hook
                 treemacs-mode-hook))
   (add-hook mode(lambda() (display-line-numbers-mode 0))))
+
+(use-package vterm)
 
 ;; Make org mode auto new line after the 80th character
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
