@@ -33,8 +33,12 @@
 ;; Set frame transparency
 ;; (set-frame-parameter (selected-frame) 'alpha '(96 . 92))
 ;; (add-to-list 'default-frame-alist '(alpha . (96 . 92)))
-(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Maximize frame on non-GNOME systems (GNOME uses early-init.el)
+(unless (and (getenv "XDG_CURRENT_DESKTOP")
+             (string-match-p "GNOME" (getenv "XDG_CURRENT_DESKTOP")))
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 ;; Set org-mode for scratch buffer
 (setq initial-major-mode 'org-mode)
@@ -489,3 +493,15 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 ;; Get ssh agent from user shell
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
