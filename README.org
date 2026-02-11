@@ -567,12 +567,17 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package go-mode)
 
+     (use-package odin-mode
+       :vc (:url "https://github.com/mattt-b/odin-mode"))
+
+     (use-package zig-mode)
+
      (use-package protobuf-mode)
 
      (use-package dockerfile-mode)
 
      (use-package jinja2-mode)
-     #+end_src
+   #+end_src
 
 ** Language Servers
    This section will cover the ~lsp-mode~ package and the various configurations
