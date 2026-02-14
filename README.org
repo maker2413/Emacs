@@ -396,6 +396,7 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
      (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
      (add-to-list 'org-structure-template-alist '("ya" . "src yaml"))
+     (add-to-list 'org-structure-template-alist '("zi" . "src zig"))
   #+end_src
 
 ** Org Roam Configuration
