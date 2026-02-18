@@ -389,7 +389,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-hook 'go-mode-hook #'lsp-deferred)
 (add-hook 'go-mode-hook #'yas-minor-mode)
 
-;; Add hook to go-mode for lsp and yasnippet
+;; Add hook to zig-mode for lsp and yasnippet
 (add-hook 'zig-mode-hook #'lsp-deferred)
 (add-hook 'zig-mode-hook #'yas-minor-mode)
 
