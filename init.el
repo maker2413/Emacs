@@ -318,8 +318,6 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package weblorg)
 
-(add-hook 'markdown-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 (add-hook 'markdown-mode-hook 'flyspell-mode)
 
 (add-hook 'css-mode-hook
