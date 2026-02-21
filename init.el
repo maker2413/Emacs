@@ -225,6 +225,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-to-list 'org-structure-template-alist '("ts" . "src typescript"))
 (add-to-list 'org-structure-template-alist '("ya" . "src yaml"))
 (add-to-list 'org-structure-template-alist '("zi" . "src zig"))
+(add-to-list 'org-structure-template-alist '("sql" . "src sql"))
 
 (use-package org-roam
   :ensure t
