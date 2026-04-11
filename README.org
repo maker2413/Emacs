@@ -561,6 +561,8 @@ appropriate elisp files. I will cover how this is done further in this document.
 
      (use-package jsonnet-mode)
 
+     (use-package json-mode)
+
      (use-package mermaid-mode)
 
      (use-package lua-mode)

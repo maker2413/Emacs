@@ -353,6 +353,8 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 
 (use-package jsonnet-mode)
 
+(use-package json-mode)
+
 (use-package mermaid-mode)
 
 (use-package lua-mode)
