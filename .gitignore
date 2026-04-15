@@ -8,8 +8,10 @@ bookmarks
 eln-cache
 elpa
 network-security.data
+org-persist
 org-roam.db
 private
+projects
 session*
 tramp
 transient
