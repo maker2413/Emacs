@@ -391,6 +391,7 @@ appropriate elisp files. I will cover how this is done further in this document.
      (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
      (add-to-list 'org-structure-template-alist '("json" . "src json"))
      (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python"))
+     (add-to-list 'org-structure-template-alist '("jl" . "src julia"))
      (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
      (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
      (add-to-list 'org-structure-template-alist '("py" . "src python"))
@@ -717,6 +718,17 @@ appropriate elisp files. I will cover how this is done further in this document.
     to allow emacs to interact with python venv's:
     #+begin_src emacs-lisp
       (use-package pyvenv)
+    #+end_src
+
+*** Julia Language Server
+    Similar to the other language server configs:
+    #+begin_src emacs-lisp
+      (use-package lsp-julia
+           :hook
+           (julia-mode . (lambda ()
+                           (setq-local lsp-enable-text-document-color nil)
+                           (lsp-deferred)
+                           (add-hook 'before-save-hook #'lsp-format-buffer nil t))))
     #+end_src
 
 *** Jsonnet Language Server

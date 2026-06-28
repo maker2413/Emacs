@@ -219,6 +219,7 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
 (add-to-list 'org-structure-template-alist '("json" . "src json"))
 (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python"))
+(add-to-list 'org-structure-template-alist '("jl" . "src julia"))
 (add-to-list 'org-structure-template-alist '("li" . "src lisp"))
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
@@ -455,6 +456,13 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 (add-hook 'python-mode-hook #'lsp-deferred)
 
 (use-package pyvenv)
+
+(use-package lsp-julia
+     :hook
+     (julia-mode . (lambda ()
+                     (setq-local lsp-enable-text-document-color nil)
+                     (lsp-deferred)
+                     (add-hook 'before-save-hook #'lsp-format-buffer nil t))))
 
 ;; jsonnet-language-server -- LSP registration for Emacs lsp-mode.
 ;; Commentary:
