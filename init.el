@@ -455,6 +455,13 @@ To create a file, visit it with C-x C-f and enter text in its buffer.
 ;; Add hook to python-mode for lsp
 (add-hook 'python-mode-hook #'lsp-deferred)
 
+;; indent python properly
+(setq python-indent-offset 4)
+
+;; ruff formatter
+(use-package ruff-format
+  :hook (python-mode . ruff-format-on-save-mode))
+
 (use-package pyvenv)
 
 (use-package lsp-julia
